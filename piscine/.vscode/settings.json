@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"limits": "c",
+		"type_traits": "c",
+		"unistd.h": "c",
+		"logic.h": "c",
+		"stdlib.h": "c",
+		"ft_boolean.h": "c"
+	}
+}
