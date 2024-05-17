@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_boolean.h                                       :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/29 13:25:50 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/29 13:36:54 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/14 13:32:26 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/01/14 15:51:39 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_BOOLEAN_H
-# define FT_BOOLEAN_H
+#include "libft.h"
 
-# include <unistd.h>
+int	ft_tolower(int c)
+{
+	if (c >= 'A' && c <= 'Z')
+		return (c - ('A' - 'a'));
+	return (c);
+}
 
-# define TRUE 1
-# define FALSE 0
-# define SUCCESS 1
-# define EVEN_MSG "I have an even number of arguments."
-# define ODD_MSG "I have an odd number of arguments."
-# define EVEN(n) (n % 2 == 0)
+// int	main(void)
+// {
+// 	char c = 'A';
 
-typedef int	t_bool;
+// 	puts(&c);
+// 	c = ft_tolower(c);
+// 	puts(&c);
 
-#endif
+// 	c = 'Z';
+// 	puts(&c);
+// 	c = ft_tolower(c);
+// 	puts(&c);
+// }

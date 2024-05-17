@@ -1,42 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ultimate_range.c                                :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/21 11:08:39 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/29 13:00:31 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/08 17:15:11 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/01/14 15:51:17 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 
-int	ft_ultimate_range(int **range, int min, int max)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	int	len;
-	int	i;
+	unsigned char	*ptr;
+	size_t			i;
 
-	len = max - min;
-	if (len <= 0)
-		return (0);
-	*range = malloc(sizeof(int) * len);
+	ptr = s;
 	i = 0;
-	while (i < len)
+	while (i < n)
 	{
-		(*range)[i] = i + min;
+		*ptr = (unsigned char)c;
+		++ptr;
 		++i;
 	}
-	(*range)[i] = 0;
-	return (len);
+	return (s);
 }
 
-// int	main()
-// {
-// 	int *range;
-
-// 	int len = ft_ultimate_range(&range, 1, 10);
-// 	for (int i = 0; i < len; ++i)
-// 		printf("%d ", range[i]);
-// }
+//int	main(void)
+//{
+//	char	str[50] = "Hddfgdfgdgfdgdfgdgdfgdfgsdhgd ";
+//
+//	//	strcpy(str, "This is string.h library function");
+//	puts(str);
+//	ft_memset(str, '$', 7);
+//	puts(str);
+//}

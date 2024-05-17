@@ -1,50 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_range.c                                         :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/21 11:01:34 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/29 13:00:24 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/28 12:32:17 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 18:11:40 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 
-int	*ft_range(int min, int max)
+static int	ft_intlen(int n)
 {
-	int	*num_arr;
 	int	len;
-	int	i;
 
-	num_arr = malloc(sizeof(int));
-	len = max - min;
-	if (len <= 0)
+	len = 0;
+	if (n <= 0)
+		len++;
+	while (n)
 	{
-		*num_arr = 0;	
-		return (num_arr);
+		n /= 10;
+		len++;
 	}
-	num_arr = malloc(sizeof(int) * len + 1);
-	i = 0;
-	while (i < len)
-	{
-		*(num_arr + i) = i + min;
-		++i;
-	}
-	num_arr[i] = 0;
-	return (num_arr);
+	return (len);
 }
 
-/* 
-int	main()
+char	*ft_itoa(int n)
 {
-	int	min = 0;
-	int max = 10;
-	int	*num_arr = ft_range(min, max);
-	for (int i = 0; i < max - min; ++i)
-		printf("%d ", *(num_arr + i));
-	free(num_arr);
+	char		*ptr;
+	int			len;
+	long int	m;
+
+	len = ft_intlen(n);
+	ptr = malloc(sizeof(char) * len + 1);
+	if (!ptr)
+		return (NULL);
+	m = n;
+	if (m < 0)
+	{
+		ptr[0] = '-';
+		m *= -1;
+	}
+	ptr[len] = '\0';
+	len--;
+	if (m == 0)
+		ptr[0] = '0';
+	while (m)
+	{
+		ptr[len] = m % 10 + '0';
+		m /= 10;
+		len--;
+	}
+	return (ptr);
 }
- */

@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_recursive_factorial.c                           :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 16:06:09 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/16 16:16:02 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/08 16:35:59 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/02/03 18:15:30 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
-int	ft_recursive_factorial(int nb)
+int	ft_isalnum(int c)
 {
-	if (nb < 0)
-		return (0);
-	if (nb <= 1)
-		return (1);
-	return (nb * ft_recursive_factorial(nb - 1));
-}
+	int	is_lower;
+	int	is_upper;
+	int	is_digit;
 
-// int	main()
-// {
-// 	for (int i = 0; i < 10; ++i)
-// 		printf("%i: %i\n", i, ft_recursive_factorial(i));
-// }
+	is_lower = (c >= 'a' && c <= 'z');
+	is_upper = (c >= 'A' && c <= 'Z');
+	is_digit = (c >= '0' && c <= '9');
+	if (is_lower || is_upper || is_digit)
+	{
+		return (1);
+	}
+	return (0);
+}

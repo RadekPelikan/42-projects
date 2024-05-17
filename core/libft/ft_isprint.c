@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.h                                           :+:      :+:    :+:   */
+/*   ft_isprint:.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/29 13:33:34 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/29 13:37:13 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/08 16:51:48 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 18:56:52 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ABS_H
-# define FT_ABS_H
+#include "libft.h"
 
-# define ABS(Value) (Value > 0 ? Value : -Value)
-
-#endif
+int	ft_isprint(int c)
+{
+	return (c >= ' ' && c <= '~');
+}

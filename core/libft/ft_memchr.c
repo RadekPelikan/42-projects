@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap.c                                          :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 20:27:02 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/08 20:45:47 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/14 14:11:18 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 17:59:22 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <stdio.h>
+#include "libft.h"
 
-void	ft_swap(int *a, int *b)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int	temp;
+	size_t	i;
 
-	temp = *a;
-	*a = *b;
-	*b = temp;
+	i = 0;
+	while (i < n)
+	{
+		if (((unsigned char *)s)[i] == (unsigned char)c)
+			return ((void *)(s + i));
+		i++;
+	}
+	return (NULL);
 }
 
 // int	main(void)
 // {
-// 	int	*ptr_a;
-// 	int	*ptr_b;
-// 	int	num_a;
-// 	int	num_b;
+// 	char str1[40] = "Hello a world!";
 
-// 	num_a = 69;
-// 	num_b = 420;
-// 	ptr_a = &num_a;
-// 	ptr_b = &num_b;
-// 	printf("A: %3d | B: %3d\n", num_a, num_b);
-// 	ft_swap(ptr_a, ptr_b);
-// 	printf("A: %3d | B: %3d", num_a, num_b);
+// 	char *ptr = ft_memchr(str1, 'e', 30);
+// 	puts(ptr);
+
+// 	ptr = memchr(str1, 'e', 30);
+// 	puts(ptr);
 // }

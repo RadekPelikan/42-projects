@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_uppercase.c                              :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 12:34:50 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/12 10:42:27 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/14 13:34:35 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 17:58:06 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
-int	ft_str_is_uppercase(char *str)
+char	*ft_strchr(const char *s, int c)
 {
-	if (*str == '\0')
-		return (1);
-	while (*str != '\0')
+	while (*s != (char)c)
 	{
-		if (!(*str >= 'A' && *str <= 'Z'))
+		if (!*s)
 			return (0);
-		str++;
+		s++;
 	}
-	return (1);
+	return ((char *)s);
 }
 
-// int	main()
+// int	main(void)
 // {
-// 	char	str[] = "";
-// 	if (ft_str_is_uppercase(str))
-// 		printf("Only uppercase");
-// 	else
-// 		printf("Something else");
+// 	char c = 'a';
+// 	char str[40] = "a Hello a world!";
+
+// 	printf("%lu\n", (unsigned long) &c);
+// 	char *ptr = ft_strchr(str, c);
+// 	puts(ptr);
 // }

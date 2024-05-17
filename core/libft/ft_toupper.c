@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_div_mod.c                                       :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 20:46:34 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/09 10:32:52 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/14 13:26:29 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/01/14 15:51:41 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <stdio.h>
+#include "libft.h"
 
-void	ft_div_mod(int a, int b, int *div, int *mod)
+int	ft_toupper(int c)
 {
-	*div = a / b;
-	*mod = a % b;
+	if (c >= 'a' && c <= 'z')
+		return (c + ('A' - 'a'));
+	return (c);
 }
 
 // int	main(void)
 // {
-// 	int	num_a;
-// 	int	num_b;
-// 	int	div;
-// 	int	mod;
+// 	char	c;
 
-// 	num_a = 13;
-// 	num_b = 2;
-// 	ft_div_mod(num_a, num_b, &div, &mod);
-// 	printf("%d / %d = %d | reminder = %d", num_a, num_b, div, mod);
+// 	c = 'a';
+// 	puts(&c);
+// 	c = ft_toupper(c);
+// 	puts(&c);
+// 	c = 'z';
+// 	puts(&c);
+// 	c = ft_toupper(c);
+// 	puts(&c);
 // }

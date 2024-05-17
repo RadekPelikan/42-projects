@@ -1,43 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_rev_int_tab.c                                   :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 23:13:38 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/09 10:32:28 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/14 13:55:26 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 17:58:27 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <stdio.h>
+#include "libft.h"
 
-void	ft_rev_int_tab(int *tab, int size)
+char	*ft_strrchr(const char *s, int c)
 {
-	int	temp[9999];
 	int	i;
 
-	i = 0;
-	while (i < size)
+	i = (int) ft_strlen((char *)s);
+	while (i >= 0)
 	{
-		temp[i] = tab[i];
-		i++;
+		if (s[i] == (unsigned char)c)
+		{
+			return ((char *)s + i);
+		}
+		i--;
 	}
-	i = 0;
-	while (i < size)
-	{
-		tab[size - i - 1] = temp[i];
-		i++;
-	}
+	return (NULL);
 }
 
 // int	main(void)
 // {
-// 	int	length = 10;
-// 	int	nums[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+// 	char c = 'a';
+// 	char str[40] = "a Hello a world!";
 
-// 	ft_rev_int_tab(&nums[0], length);
-
-// 	for(int i = 0; i < length; i++)
-//       		printf("%d ", nums[i]);
+// 	printf("%lu\n", (unsigned long) &c);
+// 	char *ptr = ft_strrchr(str, c);
+// 	puts(ptr);
 // }

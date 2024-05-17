@@ -5,48 +5,35 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/21 10:55:00 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/29 10:24:25 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/14 16:45:06 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 19:02:47 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 
-int	ft_strlen(char *str)
+char	*ft_strdup(const char *src)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strdup(char *src)
-{
-	char	*dest;
-	int		len;
 	int		i;
+	char	*dest;
 
-	len = ft_strlen(src);
-	dest = malloc(sizeof(char) * len + 1);
 	i = 0;
-	while (i < len)
+	dest = (char *)malloc(ft_strlen(src) * sizeof(char) + 1);
+	if (!dest)
+		return (NULL);
+	while (src[i])
 	{
-		*(dest + i) = *(src + i);
-		++i;
+		dest[i] = src[i];
+		i++;
 	}
-	*(dest + i) = 0;
+	dest[i] = '\0';
 	return (dest);
 }
-/* 
-int	main()
-{
-	char	*src = "Hello!";
-	char	*dest = ft_strdup(src);
-	printf("%s\n", dest);
-	free(dest);
-	printf("%s\n", dest);
-}
- */
+
+// int main(void) {
+// 	char str1[40] = "Hello world!";
+
+// 	puts(str1);
+// 	char *str2 = ft_strdup(str1);
+// 	puts(str2);
+// }

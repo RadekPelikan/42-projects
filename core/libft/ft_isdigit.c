@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   out.h                                              :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/27 10:05:03 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/28 17:37:46 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/08 16:27:55 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/01/28 13:51:23 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OUT_H
-# define OUT_H
+#include "libft.h"
 
-void	print_str(char *str);
-void	print_error(char *str);
-
-#endif
+int	ft_isdigit(int c)
+{
+	return (c >= '0' && c <= '9');
+}

@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_prime.c                                      :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 17:50:10 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/16 17:58:29 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/11 17:03:16 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/01/14 15:50:46 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
-int	ft_is_prime(int nb)
+void	ft_bzero(void *s, size_t n)
 {
-	int	i;
+	unsigned char	*ptr;
+	size_t			i;
 
-	if (nb <= 1)
-		return (0);
-	i = 2;
-	while (i < nb)
+	i = 0;
+	ptr = s;
+	while (i < n)
 	{
-		if (nb % i == 0)
-			return (0);
+		*ptr = '\0';
+		++ptr;
 		++i;
 	}
-	return (1);
 }
 
-// int	main()
-// {
-// 	for (int i = 0; i < 100; ++i)
-// 		printf("%2d: %s\n", i, ft_is_prime(i) ? "PRIME" : "NOT PRIME");
-// }
+//int	main(void)
+//{
+//	char	str[50] = "Hello World!";
+//
+//	puts(str);
+//	ft_bzero(str, 4);
+//	puts(str);
+//}

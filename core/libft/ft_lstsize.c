@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 09:56:39 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/11 09:28:29 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/04/28 21:48:03 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 19:45:07 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_putstr(char *str)
+int	ft_lstsize(t_list *lst)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] != '\0')
-		ft_putchar(str[i++]);
+	while (lst)
+	{
+		i++;
+		lst = lst->next;
+	}
+	return (i);
 }

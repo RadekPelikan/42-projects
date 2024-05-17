@@ -1,42 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ten_queens_puzzle.c                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 17:59:10 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/21 15:11:38 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/28 13:32:03 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/01/28 14:02:58 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
+#include "libft.h"
 
-void	put_str(char *str)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int	len;
-
-	len = 0;
-	while (*(str + len++))
-		;
-	write(1, str, len - 1);
-}
-
-int	ft_ten_queens_puzzle(void)
-{
-	char	queens[] =  "0000000000";
+	char	*result;
 	int		i;
-	
+
+	if (s == NULL || f == NULL)
+		return (NULL);
+	result = ft_calloc(ft_strlen(s) + 1, sizeof(char));
+	if (result == NULL)
+		return (NULL);
 	i = 0;
-	while (i < sizeof(queens))
+	while (s[i] != '\0')
 	{
-		printf("%d\n", i);
+		result[i] = f(i, s[i]);
 		++i;
 	}
-}
-
-int	main()
-{
-	ft_ten_queens_puzzle();
+	result[i] = '\0';
+	return (result);
 }

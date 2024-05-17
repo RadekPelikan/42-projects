@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_iterative_factorial.c                           :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 16:02:30 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/16 16:15:42 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/04/29 19:48:47 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 20:15:34 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
-int	ft_iterative_factorial(int nb)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	int	res;
+	t_list	*temp;
+	t_list	*prev;
 
-	if (nb < 0)
-		return (0);
-	res = 1;
-	while (nb)
+	if (lst && *lst && del)
 	{
-		res *= nb--;
+		prev = *lst;
+		while (prev)
+		{
+			temp = prev->next;
+			ft_lstdelone(prev, del);
+			prev = temp;
+		}
+		*lst = NULL;
 	}
-	return (res);
 }
-
-// int	main()
-// {
-// 	for (int i = 0; i < 10; ++i)
-// 		printf("%i: %i\n", i, ft_iterative_factorial(i));
-// }

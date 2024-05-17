@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_numeric.c                                :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 12:26:05 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/11 12:29:04 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/08 16:17:03 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/01/14 15:50:56 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
-int	ft_str_is_numeric(char *str)
+int	ft_isalpha(int c)
 {
-	if (*str == '\0')
-		return (1);
-	while (*str != '\0')
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 	{
-		if (!(*str >= '0' && *str <= '9'))
-			return (0);
-		str++;
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
-// int	main()
+// int main()
 // {
-// 	char	str[] = "56756756375";
-// 	if (ft_str_is_numeric(str))
-// 		printf("Only numeric");
-// 	else
-// 		printf("Something else");
+// 	char yes = 'C';
+// 	char no = '4';
+
+// 	printf("%c: %s\n", yes, ft_isalpha(yes) == isalpha(yes)
+//  	? "passed" : "failed");
+// 	printf("%c: %s\n", no, ft_isalpha(no) == isalpha(no)
+//  	? "passed" : "failed");
 // }

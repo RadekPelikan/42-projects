@@ -5,38 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 13:31:07 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/15 17:28:08 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/11 20:42:06 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 18:13:28 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <bsd/string.h>
+// #include <bsd/string.h>
+#include "libft.h"
 
-unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstbuffsize)
 {
-	int		len;
+	size_t	i;
+	size_t	srcsize;
 
-	len = 0;
-	while (*(src + len) && --size)
-		*dest++ = *(src + len++);
-	*dest = '\0';
-	while (*(src + len))
-		++len;
-	return (len);
+	i = 0;
+	srcsize = ft_strlen(src);
+	if (dstbuffsize != 0)
+	{
+		while (src[i] != '\0' && i < (dstbuffsize - 1))
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (srcsize);
 }
-
-// int	main()
-// {
-// 	// char	str1[] = "hghhhhhhhhhhhhhhhhhhhhhhhhhhhh";
-// 	char	str2[100];
-// 	int		size = 100;
-
-// 	int a = ft_strlcpy(str2, "hdgdfgdfg", size);
-// 	printf("%s\n", str2);
-// 	char	str3[100];
-// 	int b = strlcpy(str3, "hdgdfgdfg", size);
-// 	printf("%s\n", str2);
-
-// 	printf("A: %d | B: %d", a ,b);
-// }

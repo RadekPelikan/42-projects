@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_alphabet.c                                :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 13:41:09 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/08 13:41:45 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/28 13:54:08 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/01/28 14:03:14 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-void	ft_putchar(char c)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	write(1, &c, 1);
-}
+	int	i;
 
-void	ft_print_alphabet(void)
-{
-	char	character;
-
-	character = 'a';
-	while (character <= 'z')
+	if (s == NULL || f == NULL)
+		return ;
+	i = 0;
+	while (s[i] != '\0')
 	{
-		ft_putchar(character++);
+		f(i, s + i);
+		++i;
 	}
 }

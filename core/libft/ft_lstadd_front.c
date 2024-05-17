@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   populate.h                                         :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/28 17:28:56 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/28 17:30:13 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/04/28 21:12:30 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 19:46:50 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef POPULATE_H
-# define POPULATE_H
+#include "libft.h"
 
-int	populate_header(t_board *board, int fh);
-int	populate_str(t_board *board, int fh);
-
-#endif
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	if (!lst || !new)
+		return ;
+	new->next = *lst;
+	*lst = new;
+}

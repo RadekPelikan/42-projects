@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_negative.c                                   :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 15:07:00 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/08 16:58:15 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/31 20:03:02 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 19:35:52 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-void	ft_putchar(char c)
+void	ft_putendl_fd(char *s, int fd)
 {
-	write(1, &c, 1);
-}
+	int	i;
 
-void	ft_is_negative(int n)
-{
-	if (n < 0)
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i])
 	{
-		ft_putchar('N');
+		write(fd, &s[i], 1);
+		i++;
 	}
-	else
-	{
-		ft_putchar('P');
-	}
+	write(fd, "\n", 1);
 }

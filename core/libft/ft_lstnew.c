@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ff_ff.c                                            :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 19:57:35 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/08 20:25:45 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/04/28 19:11:48 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 19:43:55 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <stdio.h>
+#include "libft.h"
 
-void	ft_ft(int *nbr)
+t_list	*ft_lstnew(void *content)
 {
-	*nbr = 42;
+	t_list	*ptr;
+
+	ptr = malloc(sizeof(t_list));
+	if (!ptr)
+		return (NULL);
+	ptr->content = content;
+	ptr->next = NULL;
+	return (ptr);
 }
-
-// int	main(void)
-// {
-// 	int	*num;
-// 	int	a;
-
-// 	a = 100;
-// 	num = &a;
-// 	printf("%d\n", *num);
-// 	ft_ft(num);
-// 	printf("%d\n", *num);
-// }

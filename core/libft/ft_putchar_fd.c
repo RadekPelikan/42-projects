@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/27 11:03:41 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/27 18:42:44 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/28 14:02:00 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/01/28 14:10:46 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "libft.h"
 
-int	smpl_atoi(char **str);
-
-#endif
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}

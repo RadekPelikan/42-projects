@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_reverse_alphabet.c                        :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 14:58:20 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/07 15:05:22 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/04/29 16:38:26 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 19:47:58 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-void	ft_putchar(char c)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	write(1, &c, 1);
-}
+	t_list	*last_elem;
 
-void	ft_print_reverse_alphabet(void)
-{
-	char	character;
-
-	character = 'z';
-	while (character >= 'a')
+	if (!*lst || !lst)
 	{
-		ft_putchar(character--);
+		*lst = new;
+		return ;
 	}
+	last_elem = ft_lstlast(*lst);
+	last_elem->next = new;
 }

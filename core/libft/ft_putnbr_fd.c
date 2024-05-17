@@ -1,44 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 09:56:34 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/11 09:35:15 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/31 20:11:27 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 19:16:27 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_putstr(char *str);
-void	rush(int x, int y);
-int		my_atoi(char *str);
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	ft_putnbr_fd(int n, int fd)
 {
-	int	x;
-	int	y;
+	unsigned int	x;
 
-	if (argc == 1)
+	if (n < 0)
 	{
-		x = 10;
-		y = 10;
-	}
-	else if (argc == 2)
-	{
-		x = my_atoi(argv[1]);
-		y = 10;
-	}
-	else if (argc == 3)
-	{
-		x = my_atoi(argv[1]);
-		y = my_atoi(argv[2]);
+		x = -n;
+		write(fd, "-", 1);
 	}
 	else
+		x = n;
+	if (x >= 10)
 	{
-		ft_putstr("Too many parameters");
-		return (1);
+		ft_putnbr_fd(x / 10, fd);
+		ft_putnbr_fd(x % 10, fd);
 	}
-	rush(x, y);
-	return (0);
+	if (x < 10)
+	{
+		x += 48;
+		write(fd, &x, 1);
+	}
 }

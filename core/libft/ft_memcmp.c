@@ -1,50 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_non_printable.c                          :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 10:34:52 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/15 17:27:18 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/14 14:30:00 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 18:28:54 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
+#include "libft.h"
 
-void	write_hex(char byte)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	char	c;
+	const unsigned char	*p1;
+	const unsigned char	*p2;
+	size_t				i;
 
-	write(1, "\\", 2);
-	if (byte / 16 > 9)
-		c = byte / 16 + 87;
-	else
-		c = byte / 16 + 48;
-	write(1, &c, 1);
-	if (byte % 16 > 9)
-		c = byte % 16 + 87;
-	else
-		c = byte % 16 + 48;
-	write(1, &c, 1);
-}
-
-void	ft_putstr_non_printable(char *str)
-{
-	while (*str)
+	p1 = s1;
+	p2 = s2;
+	i = 0;
+	while (i < n)
 	{
-		if (*str < ' ' || *str > '~')
-			write_hex(*str);
-		else
-			write(1, str, 1);
-		++str;
+		if (p1[i] != p2[i])
+		{
+			return (p1[i] - p2[i]);
+		}
+		i++;
 	}
+	return (0);
 }
 
 // int	main(void)
 // {
-// 	char	*str = "Coucou\ntu vas bien ?\f";
-// 	ft_putstr_non_printable(str);
-// 	return 0;
+// 	char str1[40] = "Hello a world!";
+// 	char str2[40] = "Hello b world!";
+
+// 	int res = ft_memcmp(str1, str2, 5);
+// 	printf("%d\n", res);
+
+// 	res = memcmp(str1, str2, 5);
+// 	printf("%d\n", res);
 // }

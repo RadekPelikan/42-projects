@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 13:22:30 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/08 09:14:25 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/08 16:47:34 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/01/14 15:50:58 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-void	ft_putchar(char c)
+int	ft_isascii(int c)
 {
-	write(1, &c, 1);
+	return (c >= 0 && c < 1 << 7);
 }
 
-// int	main(void)
-// {
-// 	ft_putchar('c');
+// int main() {
+// 	printf("%d\n", 1<<7);
 // }

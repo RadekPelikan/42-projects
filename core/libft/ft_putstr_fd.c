@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   out.c                                              :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/27 18:39:04 by rpelikan          #+#    #+#             */
-/*   Updated: 2023/06/28 17:40:14 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/01/28 14:15:08 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/16 19:27:53 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-void	print_str(char *str)
+void	ft_putstr_fd(char *s, int fd)
 {
-	while (*str)
-		write(1, str++, 1);
-}
+	int	i;
 
-void	print_error(char *str)
-{
-	while (*str)
-		write(2, str++, 1);
+	if (!s || !fd)
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
 }
