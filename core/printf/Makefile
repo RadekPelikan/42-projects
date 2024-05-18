@@ -61,4 +61,4 @@ diff:
 .DEBUG_FLAG:
 	$(eval FLAGS += -g)
 
-.PHONY: 	all clean fclean re debug so .MKDIR_BUILD .DEBUG_FLAG
+.PHONY: 	all clean fclean re so debug diff .MKDIR_BUILD .DEBUG_FLAG
