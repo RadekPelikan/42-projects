@@ -46,8 +46,8 @@ debug: .DEBUG_FLAG $(SO_OBJ) $(DEBUG_OBJS)
 
 so: .MKDIR_BUILD $(SO_OBJ) 
 
-$(SO_OBJ):
-	$(CC) $(FLAGS) -c -fPIC $(SRCS) -o $(SO_OBJ)
+$(SO_OBJ): $(SRCS)
+	$(CC) $(FLAGS) -o $(SO_OBJ) -fPIC -shared $^
 
 %.o: %.c
 	$(CC) $(FLAGS) -c -o $@ $<
@@ -64,5 +64,6 @@ diff:
 
 .DEBUG_FLAG:
 	$(eval FLAGS += -g)
+
 
 .PHONY: 	all clean fclean re so debug diff .MKDIR_BUILD .DEBUG_FLAG
