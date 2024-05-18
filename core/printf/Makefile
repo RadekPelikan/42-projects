@@ -1,7 +1,7 @@
 OBJ_DIR		:= ./obj
-SRC_DIR		:= ./src
+SRC_DIRS	:= ./src ./libft
 DEBUG_DIR	:= ./debug
-BUILD_DIR	:= ./build
+BUILD_DIR	:= .
 
 FLAGS		:= -Wall -Wextra -Werror
 
@@ -10,11 +10,11 @@ LIBC		:= ar rcs
 RM			:= rm -rf
 
 NAME		:=	libftprintf.a
-SO_NAME		:=	$(NAME:.a=.o)
+SO_NAME		:=	$(NAME:.a=.so)
 DEBUG_BIN	:= $(DEBUG_DIR)/bin
 
-SRCS := $(wildcard $(SRC_DIR)/*.c)
-OBJS := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+SRCS := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
+OBJS := $(foreach srcdir,$(SRC_DIRS),$(patsubst $(srcdir)/%.c,$(OBJ_DIR)/$(notdir $(srcdir))/%.o,$(wildcard $(srcdir)/*.c)))
 
 DEBUG_SRCS := $(wildcard $(DEBUG_DIR)/*.c)
 DEBUG_OBJS := $(DEBUG_SRCS:.c=.o)
@@ -27,7 +27,7 @@ all: .MKDIR_BUILD $(NAME)
 $(NAME): $(OBJS)
 	$(LIBC) $(AR_OBJ) $^
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SRCS)
 	mkdir -p $(dir $@)
 	$(CC) $(FLAGS) -c -o $@ $<
 
@@ -35,6 +35,7 @@ re:	fclean all
 
 fclean: clean
 	$(RM) $(AR_OBJ) $(DEBUG_BIN)
+	$(RM)  */*.a */*.so */*.o 
 
 clean:
 	$(RM) $(OBJS) $(SO_OBJ) $(DEBUG_OBJS)
@@ -49,6 +50,9 @@ $(SO_OBJ):
 	$(CC) $(FLAGS) -c -fPIC $(SRCS) -o $(SO_OBJ)
 
 %.o: %.c
+	$(CC) $(FLAGS) -c -o $@ $<
+
+%.o: %.h
 	$(CC) $(FLAGS) -c -o $@ $<
 
 diff:
