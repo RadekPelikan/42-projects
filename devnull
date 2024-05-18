@@ -1,7 +1,0 @@
-rm -f ./sources/populate.o ./sources/main.o ./sources/out.o ./sources/board.o ./sources/load.o ./sources/logic.o ./sources/umatrix.o ./sources/utils.o
-rm -f bsq
-rm -f  ./src/ft_printf.o
-rm -f libftprintf.a
-rm -f ft_putstr_fd.o ft_putendl_fd.o ft_atoi.o ft_strtrim.o ft_itoa.o ft_strnstr.o ft_memmove.o ft_putnbr_fd.o ft_memchr.o ft_strrchr.o ft_strchr.o ft_strdup.o ft_memcmp.o ft_substr.o ft_tolower.o ft_isalnum.o ft_strlen.o ft_isdigit.o ft_calloc.o ft_strjoin.o ft_isprint.o ft_strmapi.o ft_split.o ft_toupper.o ft_strlcat.o ft_bzero.o ft_isalpha.o ft_memset.o ft_striteri.o ft_isascii.o ft_strlcpy.o ft_memcpy.o ft_putchar_fd.o ft_strncmp.o
-rm -f ft_lstadd_back.o ft_lstadd_front.o ft_lstclear.o ft_lstdelone.o ft_lstiter.o ft_lstlast.o ft_lstmap.o ft_lstnew.o ft_lstsize.o
-rm -f libft.a
