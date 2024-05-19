@@ -1,5 +1,6 @@
 OBJ_DIR		:= ./obj
-SRC_DIRS	:= ./src ./libft
+SRC_DIRS	:= ./src
+LIB_DIR		:= ./lib
 DEBUG_DIR	:= ./debug
 BUILD_DIR	:= .
 
@@ -22,10 +23,15 @@ DEBUG_OBJS := $(DEBUG_SRCS:.c=.o)
 AR_OBJ	:= $(BUILD_DIR)/$(NAME)
 SO_OBJ	:= $(BUILD_DIR)/$(SO_NAME)
 
-all: .MKDIR_BUILD $(NAME)
+all: .MKDIR_BUILD buildLibft $(NAME)
 
 $(NAME): $(OBJS)
-	$(LIBC) $(AR_OBJ) $^
+	$(LIBC) $(AR_OBJ) $(LIB_DIR)/*.a $^ 
+
+buildLibft:
+	mkdir -p $(LIB_DIR)
+	make -C ./libft
+	mv ./libft/libft.a $(LIB_DIR)/ 
 
 $(OBJ_DIR)/%.o: $(SRCS)
 	mkdir -p $(dir $@)
@@ -46,9 +52,8 @@ run: buildDebug
 gdb: .DEBUG_FLAG buildDebug
 	@gdb $(DEBUG_BIN)
 
-buildDebug: .DEBUG_FLAG $(SO_OBJ) $(DEBUG_OBJS)
-	$(CC) -o $(DEBUG_BIN) $(SO_OBJ) $(DEBUG_OBJS)
-	
+buildDebug: .DEBUG_FLAG buildLibft $(SO_OBJ) $(DEBUG_OBJS)
+	$(CC) -o $(DEBUG_BIN) $(SO_OBJ) $(DEBUG_OBJS) -L$(LIB_DIR) -lft
 
 so: .MKDIR_BUILD $(SO_OBJ) 
 
