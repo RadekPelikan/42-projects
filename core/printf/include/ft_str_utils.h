@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_helpers.h                                :+:      :+:    :+:   */
+/*   ft_str_utils.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 17:50:35 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/19 17:56:50 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/05/19 17:50:14 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/19 18:09:05 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_HELPERS_H
-# define FT_PRINTF_HELPERS_H
+#ifndef FT_STR_UTILS_H
+# define FT_STR_UTILS_H
 
-
-# include <ctype.h>
-# include <stdarg.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
 # include "../libft/libft.h"
-# include "ft_str_utils.h"
+# include <stdbool.h>
 
-// typedef struct s_list
-// {
-//     void *content;
-//     struct s_list *next;
-// } t_list;
+#define SPECIFIER_CHARS "cspdiuxX"
 
-void	ft_putstr(const char *str);
-void	ft_free_str(char *str);
 char	*ft_strnjoin(char **strs);
+bool	ft_stringcludes(char *str, char c);
 
 #endif

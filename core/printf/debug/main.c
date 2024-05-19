@@ -1,16 +1,12 @@
-#include "../include/ft_printf.h"
-#include "../include/ft_printf_helpers.h"
 #include <stdio.h>
 #include <string.h>
+#include "../include/ft_printf.h"
+#include "../include/ft_printf_helpers.h"
 
 int	main(void)
 {
-    char *strs[] = {"Hello", "World", "C!", 0};
-	char *result = ft_strnjoin(strs);
 
-	printf("%s", result);
-	free(result);
-
+	ft_printf("%.....s", "hello");
 }
 
 int	test_printf_dot(void)
