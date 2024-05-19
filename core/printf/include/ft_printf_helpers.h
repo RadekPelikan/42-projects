@@ -17,6 +17,6 @@
 
 void	ft_putstr(const char *str);
 void	ft_free_str(char *str);
-char	*ft_strnjoin(size_t count, ...);
+char	*ft_strnjoin(char **strs);
 
 #endif

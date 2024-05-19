@@ -5,8 +5,8 @@
 
 int	main(void)
 {
-	// ft_printf("%d", 5, 5);
-	char *result = ft_strnjoin(5,"Hello", "My", "Name", "is", "Govaci");
+    char *strs[] = {"Hello", "World", "C!", 0};
+	char *result = ft_strnjoin(strs);
 
 	printf("%s", result);
 	free(result);

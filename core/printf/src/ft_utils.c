@@ -12,25 +12,25 @@ void ft_free_str(char *str)
 		free(str + i);
 		++i;
 	}
-} 
+}
 
-char *ft_strnjoin(size_t count, ...) {
-	va_list args;
+char *ft_strnjoin(char **strs) {
 	size_t i = 0;
+	size_t len;
 	char *result;
 	char *temp;
 
-	va_start(args, count);
-	result = ft_strjoin(va_arg(args, char*), va_arg(args, char*));
+	len = 0;
+	while (strs[len])
+		++len;
+	result = ft_strjoin(strs[0], strs[1]);
 	i = 2;
-	while (i < count)
+	while (i < len)
 	{
-		temp = ft_strjoin(result, va_arg(args, char*));
+		temp = ft_strjoin(result, strs[i]);
 		free(result);
 		result = temp;
 		++i;
 	}
-
-	va_end(args);
 	return result;
 }
