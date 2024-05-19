@@ -40,9 +40,15 @@ fclean: clean
 clean:
 	$(RM) $(OBJS) $(SO_OBJ) $(DEBUG_OBJS)
 
-debug: .DEBUG_FLAG $(SO_OBJ) $(DEBUG_OBJS)
+run: buildDebug
+	@$(DEBUG_BIN)
+
+gdb: .DEBUG_FLAG buildDebug
+	@gdb $(DEBUG_BIN)
+
+buildDebug: .DEBUG_FLAG $(SO_OBJ) $(DEBUG_OBJS)
 	$(CC) -o $(DEBUG_BIN) $(SO_OBJ) $(DEBUG_OBJS)
-	@./$(DEBUG_BIN)
+	
 
 so: .MKDIR_BUILD $(SO_OBJ) 
 
@@ -66,4 +72,4 @@ diff:
 	$(eval FLAGS += -g)
 
 
-.PHONY: 	all clean fclean re so debug diff .MKDIR_BUILD .DEBUG_FLAG
+.PHONY: 	
