@@ -35,7 +35,7 @@ buildLibft:
 
 $(OBJ_DIR)/%.o: $(SRCS)
 	mkdir -p $(dir $@)
-	$(CC) $(FLAGS) -c -o $@ $<
+	$(CC) $(FLAGS) -c -o $@ $<	
 
 re:	fclean all
 
@@ -47,6 +47,7 @@ clean:
 	$(RM) $(OBJS) $(SO_OBJ) $(DEBUG_OBJS)
 
 run: buildDebug
+	@echo
 	@$(DEBUG_BIN)
 
 gdb: .DEBUG_FLAG buildDebug

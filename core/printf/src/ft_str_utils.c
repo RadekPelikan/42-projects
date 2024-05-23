@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:05 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/19 18:22:13 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/23 21:19:29 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,18 @@ bool	ft_stringcludes(char *str, char c)
 	size_t	i;
 
 	i = 0;
-	while (str[i] != c)
+	while (str[i] != c && str[i] != '\0')
 		++i;
-	if (str[i] == '\0')
-		return (true);
-	return (false);
+	return (str[i] != '\0');
+}
+
+size_t	ft_find_last(const char *str, char c) {
+	size_t	i;
+	size_t	len;
+
+	len=ft_strlen(str);
+	i = 1;
+	while(str[len - i] != c && len - i != 0) 
+		++i;
+	return (len - i);
 }

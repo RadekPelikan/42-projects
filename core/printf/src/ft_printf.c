@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:49:59 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/19 18:10:22 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/23 21:23:38 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_resolve_specifier(const char *format, va_list args)
 		result[1] = '\0';
 		return (result);
 	}
-	i = 0;
+	i = 1;
 	while (format[i] != '\0')
 	{
 		if (ft_stringcludes(SPECIFIER_CHARS, format[i]))
@@ -52,6 +52,7 @@ char	*ft_string_format(const char *format, ...)
 	char	*result;
 	va_list	args;
 	size_t	i;
+	size_t	last_dot;
 
 	i = 0;
 	va_start(args, format);
@@ -61,6 +62,7 @@ char	*ft_string_format(const char *format, ...)
 		if (format[i] == '%')
 		{
 			ft_resolve_specifier(format + i, args);
+			last_dot = ft_find_last(format, '.');
 		}
 		else
 		{
