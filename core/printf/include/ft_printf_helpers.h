@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:35 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/25 21:14:31 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/25 23:03:27 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,19 @@ typedef struct s_specifier_details
 	bool			is_space;
 	bool			is_plus;
 	// Help attributes
+	size_t			index_size;
 	size_t			index_dot;
 	// Edge case
 	bool			is_flag_set;
 	bool			is_dot_invalid;
 	bool			is_invalid;
 } t_sdetails;
+
+typedef struct s_specifier_result
+{
+	char	*result;
+	size_t	specifier_len;
+} t_sresult;
 
 void	ft_putchar(char str);
 void	ft_putstr(char *str);

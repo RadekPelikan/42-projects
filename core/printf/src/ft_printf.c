@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:49:59 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/25 21:20:51 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/25 23:27:33 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,42 @@ void	print_sdetails(t_sdetails *details)
 	printf("is_hash:        %i\n", details->is_hash);
 	printf("is_space:       %i\n", details->is_space);
 	printf("is_plus:        %i\n", details->is_plus);
+	printf("index_size:     %zu\n", details->index_size);
+	printf("index_dot:      %zu\n", details->index_dot);
 	printf("is_flag_set:    %i\n", details->is_flag_set);
 	printf("is_dot_invalid: %i\n", details->is_dot_invalid);
 	printf("is_invalid:     %i\n", details->is_invalid);
 }
 
-bool	ft_is_start_flag(char c)
+void	print_sresult(t_sresult *spef_result)
 {
-	return (c == FLAG_MINUS || c == FLAG_HASH
-		|| c == FLAG_SPACE || c == FLAG_PLUS);
+	printf("== t_sresult ==\n");
+	printf("result:        %s\n", spef_result->result);
+	printf("specifier_len: %zu\n", spef_result->specifier_len);
 }
 
-void	ft_enable_start_flag(t_sdetails *details, char c) {
+bool	ft_is_start_flag(char c)
+{
+	return (c == FLAG_MINUS || c == FLAG_HASH || c == FLAG_SPACE
+		|| c == FLAG_PLUS);
+}
+
+// Returns the number of characters than were extracted from the format
+size_t	ft_extract_num(unsigned int *size, const char *format, size_t len)
+{
+	char	*extracted_num;
+
+	printf("LEN: %zu | format: %s\n", len, format);
+	extracted_num = ft_calloc(sizeof(char), len + 1);
+	ft_strlcpy(extracted_num, format, len + 1);
+	*size = (unsigned int)ft_atoi(extracted_num);
+	printf("EXTRACTED: %s | digit: %u\n", extracted_num, *size);
+	free(extracted_num);
+	return (len);
+}
+
+void	ft_enable_start_flag(t_sdetails *details, char c)
+{
 	if (c == FLAG_MINUS)
 		details->is_minus = true;
 	else if (c == FLAG_ZERO)
@@ -52,26 +76,34 @@ void	ft_enable_start_flag(t_sdetails *details, char c) {
 // If it encounters an invalid character or sequence of characters then it returns
 // Sets invalid attributes in t_sdetails
 // Returns (bool) if specifier is finished
-bool	ft_check_specifier(const char *format, t_sdetails *details, size_t i)
+bool	ft_check_specifier(const char spef_c, t_sdetails *details, size_t i)
 {
 	bool	is_specifier_char;
 	bool	is_number;
 
-	is_specifier_char = ft_stringcludes(SPECIFIER_CHARS, format[i]);
-	is_number = ft_isdigit(format[i]);
+	is_specifier_char = ft_stringcludes(SPECIFIER_CHARS, spef_c);
+	is_number = ft_isdigit(spef_c);
 	if (is_specifier_char)
 		return (true);
-	if (ft_is_start_flag(format[i]))
-		ft_enable_start_flag(details, format[i]);
-
+		
+	// TODO: For case: it puts a is_zero to true, which shouldn't be
+	// char format[] = "'%.03s'";
+	// char var[] = "hello";
+	// printf("CHECK: %c\n", spef_c);
+	// print_sdetails(details);
+	if (!details->is_flag_set && (ft_is_start_flag(spef_c) || spef_c == FLAG_ZERO))
+		ft_enable_start_flag(details, spef_c);
 	if (!details->is_flag_set && is_number)
+	{
 		details->is_flag_set = true;
-	else if (details->is_flag_set && ft_is_start_flag(format[i]))
+		details->index_size = i;
+	}
+	else if (details->is_flag_set && ft_is_start_flag(spef_c))
 	{
 		details->is_invalid = true;
 		return (true);
 	}
-	if (format[i] == FLAG_DOT && !details->is_dot)
+	if (spef_c == FLAG_DOT && !details->is_dot)
 	{
 		details->is_dot = true;
 		details->index_dot = i;
@@ -94,45 +126,48 @@ bool	ft_check_specifier(const char *format, t_sdetails *details, size_t i)
 // • %x Prints a number in hexadecimal (base 16) lowercase format.
 // • %X Prints a number in hexadecimal (base 16) uppercase format.
 // • %% Prints a percent sign
-char	*ft_resolve_specifier(const char *format, va_list args)
+t_sresult	*ft_resolve_specifier(const char *format, va_list args)
 {
 	size_t		i;
-	char		*result;
 	char		*arg;
 	t_sdetails	*details;
+	t_sresult	*spef_result;
 
 	details = malloc(sizeof(t_sdetails));
+	spef_result = malloc(sizeof(t_sresult));
 	details->is_dot_invalid = false;
 	details->is_invalid = false;
-	i = 1;
+	i = 0;
 	while (format[i] != '\0')
 	{
-		if (ft_check_specifier(format, details, i))
+		if (ft_check_specifier(format[i], details, i))
 			break ;
-		// if (is_number && !details->is_dot)
-		// 	ft_extract_num(&(details->size), format[i], details->index_dot);
-
-		++i;
+		else
+			++i;
 	}
 	details->specifier = format[i];
+	spef_result->specifier_len = i + 1;
+	ft_extract_num(&(details->size), format + details->index_size,
+		details->index_dot - details->index_size);
+	ft_extract_num(&(details->float_size), format + details->index_dot + 1,
+		spef_result->specifier_len - details->index_dot);
 	print_sdetails(details);
-	(void)args;
-	result = NULL;
-	free(details);
 
-	arg = va_arg(args, char*);
-	result = ft_calloc(sizeof(char), ft_strlen(arg) + 1);
-	ft_strlcpy(result, arg, ft_strlen(arg) + 1);
-	return (result);
+	free(details);
+	arg = va_arg(args, char *);
+	spef_result->result = ft_calloc(sizeof(char), ft_strlen(arg) + 1);
+	ft_strlcpy(spef_result->result, arg, ft_strlen(arg) + 1);
+	return (spef_result);
 }
 
 // Returns a formatted string
 char	*ft_string_format(const char *format, ...)
 {
-	char	*result;
-	va_list	args;
-	size_t	i;
-	char	*char_sequence;
+	char		*result;
+	va_list		args;
+	size_t		i;
+	char		*char_sequence;
+	t_sresult	*spef_result;
 
 	i = 0;
 	va_start(args, format);
@@ -141,8 +176,10 @@ char	*ft_string_format(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			char_sequence = ft_resolve_specifier(format + i, args);
-			i += ft_strlen(char_sequence) + 1;
+			spef_result = ft_resolve_specifier(format + i + 1, args);
+			i += spef_result->specifier_len + 1;
+			char_sequence = spef_result->result;
+			print_sresult(spef_result);
 		}
 		else
 		{
@@ -150,7 +187,6 @@ char	*ft_string_format(const char *format, ...)
 			ft_strlcpy(char_sequence, format + i, 2);
 			++i;
 		}
-
 		ft_strappend(&result, &char_sequence);
 	}
 	va_end(args);

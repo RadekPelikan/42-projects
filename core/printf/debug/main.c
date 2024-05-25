@@ -170,11 +170,13 @@ int	main(void)
 	// output: '%.0v'
 	// char format[] = "'%.'";
 	// output: '%.0'
+	// char format[] = "'%.";
+	// output: '%.0
 	// and if there will be an number, then it will be printed as it is
 	// char format[] = "'%.5'";
 	// output: '%.5'
 
-	char format[] = "'%2.03s'";
+	char format[] = "'%10.03s'";
 	char var[] = "hello";
 
 
@@ -185,11 +187,13 @@ int	main(void)
 
 	printf(format_preq, var);
 
+	printf("\n|||||||||||| DEBUG PART ||||||||||||\n");
 	free(format_preq);
 	temp = ft_strjoin("FT_PRINTF: \t", format);
 	format_preq = ft_strjoin(temp, "\n");
 	free(temp);
 	ft_printf(format_preq, var);
 	free(format_preq);
+
 }
 
