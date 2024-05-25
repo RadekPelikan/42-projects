@@ -176,7 +176,7 @@ int	main(void)
 	// char format[] = "'%.5'";
 	// output: '%.5'
 
-	char format[] = "'%10.03s'";
+	char format[] = "'%+-+#010s'";
 	char var[] = "hello";
 
 

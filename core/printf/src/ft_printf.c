@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:49:59 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/25 23:27:33 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/26 00:13:47 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,25 @@ size_t	ft_extract_num(unsigned int *size, const char *format, size_t len)
 	return (len);
 }
 
+void	ft_extract_sizes(t_sdetails *details, const char *format, size_t spef_len)
+{
+	size_t	index_end;
+
+	index_end = details->index_dot;
+	if (details->is_dot)
+		index_end = details->index_dot;
+	else
+		index_end = spef_len;
+	ft_extract_num(&(details->size), format + details->index_size,
+		index_end - details->index_size);
+	ft_extract_num(&(details->float_size), format + index_end + 1,
+		spef_len - index_end);
+	// ft_extract_num(&(details->size), format + details->index_size,
+	// 	details->index_dot - details->index_size);
+	// ft_extract_num(&(details->float_size), format + details->index_dot + 1,
+	// 	spef_len - details->index_dot);
+}
+
 void	ft_enable_start_flag(t_sdetails *details, char c)
 {
 	if (c == FLAG_MINUS)
@@ -70,6 +89,27 @@ void	ft_enable_start_flag(t_sdetails *details, char c)
 		details->is_space = true;
 	else if (c == FLAG_PLUS)
 		details->is_plus = true;
+}
+
+bool	ft_check_dot_specifier(const char spef_c, t_sdetails *details, size_t i)
+{
+	bool	is_specifier_char;
+	bool	is_number;
+
+	is_specifier_char = ft_stringcludes(SPECIFIER_CHARS, spef_c);
+	is_number = ft_isdigit(spef_c);
+	if (spef_c == FLAG_DOT && !details->is_dot)
+	{
+		details->is_dot = true;
+		details->index_dot = i;
+		return (false);
+	}
+	if (details->is_dot && (!is_specifier_char && !is_number))
+	{
+		details->is_dot_invalid = true;
+		return (true);
+	}
+	return (false);
 }
 
 // Validates the specifier
@@ -85,15 +125,10 @@ bool	ft_check_specifier(const char spef_c, t_sdetails *details, size_t i)
 	is_number = ft_isdigit(spef_c);
 	if (is_specifier_char)
 		return (true);
-		
-	// TODO: For case: it puts a is_zero to true, which shouldn't be
-	// char format[] = "'%.03s'";
-	// char var[] = "hello";
-	// printf("CHECK: %c\n", spef_c);
-	// print_sdetails(details);
-	if (!details->is_flag_set && (ft_is_start_flag(spef_c) || spef_c == FLAG_ZERO))
+	if (!details->is_flag_set && (ft_is_start_flag(spef_c)
+			|| ((details->index_size != 0 || !details->is_dot) && spef_c == FLAG_ZERO)))
 		ft_enable_start_flag(details, spef_c);
-	if (!details->is_flag_set && is_number)
+	if (!details->is_flag_set && !details->is_dot && is_number)
 	{
 		details->is_flag_set = true;
 		details->index_size = i;
@@ -103,17 +138,8 @@ bool	ft_check_specifier(const char spef_c, t_sdetails *details, size_t i)
 		details->is_invalid = true;
 		return (true);
 	}
-	if (spef_c == FLAG_DOT && !details->is_dot)
-	{
-		details->is_dot = true;
-		details->index_dot = i;
-		return (false);
-	}
-	if (details->is_dot && (!is_specifier_char && !is_number))
-	{
-		details->is_dot_invalid = true;
+	if (ft_check_dot_specifier(spef_c, details, i))
 		return (true);
-	}
 	return (false);
 }
 
@@ -142,17 +168,12 @@ t_sresult	*ft_resolve_specifier(const char *format, va_list args)
 	{
 		if (ft_check_specifier(format[i], details, i))
 			break ;
-		else
-			++i;
+		++i;
 	}
 	details->specifier = format[i];
 	spef_result->specifier_len = i + 1;
-	ft_extract_num(&(details->size), format + details->index_size,
-		details->index_dot - details->index_size);
-	ft_extract_num(&(details->float_size), format + details->index_dot + 1,
-		spef_result->specifier_len - details->index_dot);
+	ft_extract_sizes(details, format, spef_result->specifier_len);
 	print_sdetails(details);
-
 	free(details);
 	arg = va_arg(args, char *);
 	spef_result->result = ft_calloc(sizeof(char), ft_strlen(arg) + 1);
@@ -174,6 +195,8 @@ char	*ft_string_format(const char *format, ...)
 	result = NULL;
 	while (format[i] != '\0')
 	{
+		// TODO: Final result is printed badly, sometimes with more characters at the front
+		// Bug is in strappend, need to initialize the result first
 		if (format[i] == '%')
 		{
 			spef_result = ft_resolve_specifier(format + i + 1, args);
