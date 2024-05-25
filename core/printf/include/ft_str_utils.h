@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:14 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/23 21:15:52 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/25 19:09:44 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../libft/libft.h"
 # include <stdbool.h>
 
-#define SPECIFIER_CHARS "cspdiuxX"
+
 
 char	*ft_strnjoin(char **strs);
 bool	ft_stringcludes(char *str, char c);
