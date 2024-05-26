@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:35 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 19:12:53 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/26 21:15:18 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 # define FT_PRINTF_HELPERS_H
 
 # include "../libft/libft.h"
-# include "ft_str_utils.h"
 # include "ft_io.h"
+# include "ft_printf_types.h"
+# include "ft_str_utils.h"
 # include <ctype.h>
 # include <stdarg.h>
 # include <stdio.h>
@@ -32,45 +33,24 @@
 # define FLAG_PLUS '+'
 # define FLAG_DOT '.'
 
-// (specifier) char
-// • %c Prints a single character.
-// • %s Prints a string (as defined by the common C convention).
-// • %p The void * pointer argument has to be printed in hexadecimal format.
-// • %d Prints a decimal (base 10) number.
-// • %i Prints an integer in base 10.
-// • %u Prints an unsigned decimal (base 10) number.
-// • %x Prints a number in hexadecimal (base 16) lowercase format.
-// • %X Prints a number in hexadecimal (base 16) uppercase format.
-// • %% Prints a percent sign
-typedef struct s_specifier_details
-{
-	unsigned int	size;
-	unsigned int	float_size;
-	char			specifier;
-	// Bonus Flags
-	bool			is_minus;
-	bool			is_zero;
-	bool			is_dot;
-	bool			is_hash;
-	bool			is_space;
-	bool			is_plus;
-	// Help attributes
-	size_t			index_size;
-	size_t			index_dot;
-	size_t			index_spef;
-	// Edge case
-	bool			is_flag_set;
-	bool			is_dot_invalid;
-	bool			is_invalid;
-}					t_sdetails;
+// arg
+char	*ft_resolve_arg(const char *format, t_sdetails *details, va_list args);
 
-typedef struct s_sequence_result
-{
-	char			*result;
-	size_t			seq_len;
-}					t_sresult;
+// spef (specifier)
 
-void				ft_free_str(char *str);
-char				*ft_resolve_arg(const char *format, t_sdetails *details,va_list args);
+bool	ft_is_start_flag(char c);
+void	ft_enable_start_flag(t_sdetails *details, char c);
+bool	ft_check_start_flag(const char spef_c, t_sdetails *details, size_t i);
+bool	ft_check_dot_spef(const char spef_c, t_sdetails *details, size_t i);
+// Validates the specifier
+// If it encounters an invalid character or sequence of characters then it returns
+// Sets invalid attributes in t_sdetails
+// Returns (bool) if specifier is finished
+bool	ft_check_specifier(const char spef_c, t_sdetails *details, size_t i);
+
+// Returns the number of characters than were extracted from the format
+size_t	ft_extr_num(unsigned int *size, const char *format, size_t len);
+// Extracts size and float_size from specifier (format) to details
+void	ft_extr_sizes(t_sdetails *details, const char *format, size_t spef_len);
 
 #endif

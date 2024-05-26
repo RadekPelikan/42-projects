@@ -1,5 +1,5 @@
 OBJ_DIR		:= ./obj
-SRC_DIRS	:= ./src ./src/arg
+SRC_DIRS	:= ./src ./src/arg ./src/spef
 LIB_DIR		:= ./lib
 DEBUG_DIR	:= ./debug
 BUILD_DIR	:= .
