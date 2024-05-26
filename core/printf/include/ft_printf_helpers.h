@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:35 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 21:15:18 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/26 21:26:59 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "ft_io.h"
 # include "ft_printf_types.h"
 # include "ft_str_utils.h"
-# include <ctype.h>
+// # include <ctype.h>
 # include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>

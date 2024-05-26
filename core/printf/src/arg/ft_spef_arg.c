@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:58:11 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 19:00:25 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/26 21:47:55 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,7 @@ char	*ft_resolve_spef_int(t_sdetails *details, int n)
 	char	*result;
 
 	(void)details;
-	(void)n;
-	result = ft_calloc(sizeof(char), 2);
-	result[0] = '1';
-	result[1] = '\0';
+	result = ft_itoa(n);
 	return (result);
 }
 
@@ -96,10 +93,7 @@ char	*ft_resolve_spef_uint(t_sdetails *details, unsigned int n)
 	char	*result;
 
 	(void)details;
-	(void)n;
-	result = ft_calloc(sizeof(char), 2);
-	result[0] = '2';
-	result[1] = '\0';
+	result = ft_utoa(n);
 	return (result);
 }
 

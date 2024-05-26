@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:44:51 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/16 19:56:25 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/26 22:01:20 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,15 @@ char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
+size_t	ft_strfind_first(const char *str, char c);
+size_t	ft_strfind_last(const char *str, char c);
 char	**ft_split(char const *s, char c);
+int		ft_intlen(unsigned long n);
+char	*ft_alloc_str(int len);
 char	*ft_itoa(int n);
+char	*ft_utoa(unsigned int n);
+char	*ft_ltoa(long n);
+char	*ft_ultoa(unsigned long n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 void	ft_putchar_fd(char c, int fd);

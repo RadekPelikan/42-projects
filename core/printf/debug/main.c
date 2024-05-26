@@ -151,7 +151,7 @@ void test_printf_minus(void)
 
 	printf(format, var);
 }
-
+#include <limits.h>
 
 int	main(void)
 {
@@ -177,11 +177,13 @@ int	main(void)
 	// char format[] = "'%.5'";
 	// output: '%.5'
 
-	char format[] = "%. v s '%10s'";
-	char var[] = "hello";
+	// char format[] = "%. v s '%10s'";
+	// char var[] = "hello";
 
+	char format[] = "'%u'";
+	unsigned int var = UINT_MAX;
 
-	printf("format: '%s' | var: '%s'\n\n", format, var);
+	printf("format: '%s' | var: '%u'\n\n", format, var);
 	char *temp = ft_strjoin("PRINTF: \t", format);
 	char *format_preq = ft_strjoin(temp, "\n");
 	free(temp);

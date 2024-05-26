@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_utils.h                                     :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 17:50:14 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 21:54:23 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/05/26 21:57:14 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/26 22:01:35 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_STR_UTILS_H
-# define FT_STR_UTILS_H
+#include "libft.h"
 
-# include "../libft/libft.h"
-# include <stdbool.h>
+int	ft_intlen(unsigned long n)
+{
+	int	len;
 
-char	*ft_strappend(char **base, char **tail);
-char	*ft_strnjoin(char **strs);
-bool	ft_stringcludes(char *str, char c);
-char	*ft_strrepeat(const char *str, size_t n);	
-
-#endif
+	len = 0;
+	if (n <= 0)
+		len++;
+	while (n)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
+}

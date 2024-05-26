@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_ltoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/28 12:32:17 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 21:56:37 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/05/26 21:54:10 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/26 21:58:12 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <limits.h>
 
-char	*ft_itoa(int n)
+char	*ft_ltoa(long n)
 {
 	char	*ptr;
 	int		len;
 
 	len = ft_intlen(n);
 	ptr = ft_alloc_str(len);
-	if (n == INT_MIN)
+	if (n == LONG_MIN)
 	{
 		ptr[--len] = (n - 1) % 10 + '0' + 1;
 		n /= 10;
@@ -40,7 +40,7 @@ char	*ft_itoa(int n)
 	return (ptr);
 }
 
-char	*ft_utoa(unsigned int n)
+char	*ft_ultoa(unsigned long n)
 {
 	char	*ptr;
 	int		len;
@@ -56,4 +56,3 @@ char	*ft_utoa(unsigned int n)
 	}
 	return (ptr);
 }
-
