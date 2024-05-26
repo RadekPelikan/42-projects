@@ -27,7 +27,7 @@ all: .MKDIR_BUILD buildLibft $(NAME)
 
 $(NAME): $(OBJS)
 	$(LIBC) $(AR_OBJ) $(LIB_DIR)/*.a $^ 
-
+	
 buildLibft:
 	mkdir -p $(LIB_DIR)
 	make -C ./libft
@@ -78,4 +78,4 @@ diff:
 	$(eval FLAGS += -g)
 
 
-.PHONY: 	
+.PHONY:	all buildLibft re fclean clean run gdb buildDebug so diff .MKDIR_BUILD .DEBUG_FLAG

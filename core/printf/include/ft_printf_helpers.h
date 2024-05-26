@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:35 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/25 23:03:27 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/26 15:15:23 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ typedef struct s_specifier_details
 	bool			is_invalid;
 } t_sdetails;
 
-typedef struct s_specifier_result
+typedef struct s_sequence_result
 {
 	char	*result;
-	size_t	specifier_len;
+	size_t	seq_len;
 } t_sresult;
 
 void	ft_putchar(char str);
