@@ -6,40 +6,38 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:49:59 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 21:10:36 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/26 22:09:33 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf_helpers.h"
 
-// void	print_sdetails(t_sdetails *details)
-// {
-// 	printf("== t_sdetails ==\n");
-// 	printf("size:           %u\n", details->size);
-// 	printf("float_size:     %u\n", details->float_size);
-// 	printf("specifier:      %c\n", details->specifier);
-// 	printf("is_minus:       %i\n", details->is_minus);
-// 	printf("is_zero:        %i\n", details->is_zero);
-// 	printf("is_dot:         %i\n", details->is_dot);
-// 	printf("is_hash:        %i\n", details->is_hash);
-// 	printf("is_space:       %i\n", details->is_space);
-// 	printf("is_plus:        %i\n", details->is_plus);
-// 	printf("index_size:     %zu\n", details->index_size);
-// 	printf("index_dot:      %zu\n", details->index_dot);
-// 	printf("index_spef:     %zu\n", details->index_spef);
-// 	printf("is_flag_set:    %i\n", details->is_flag_set);
-// 	printf("is_dot_invalid: %i\n", details->is_dot_invalid);
-// 	printf("is_invalid:     %i\n", details->is_invalid);
-// }
+void	print_sdetails(t_sdetails *details)
+{
+	printf("== t_sdetails ==\n");
+	printf("size:           %u\n", details->size);
+	printf("float_size:     %u\n", details->float_size);
+	printf("specifier:      %c\n", details->specifier);
+	printf("is_minus:       %i\n", details->is_minus);
+	printf("is_zero:        %i\n", details->is_zero);
+	printf("is_dot:         %i\n", details->is_dot);
+	printf("is_hash:        %i\n", details->is_hash);
+	printf("is_space:       %i\n", details->is_space);
+	printf("is_plus:        %i\n", details->is_plus);
+	printf("index_size:     %zu\n", details->index_size);
+	printf("index_dot:      %zu\n", details->index_dot);
+	printf("index_spef:     %zu\n", details->index_spef);
+	printf("is_flag_set:    %i\n", details->is_flag_set);
+	printf("is_dot_invalid: %i\n", details->is_dot_invalid);
+	printf("is_invalid:     %i\n", details->is_invalid);
+}
 
-// void	print_sresult(t_sresult *seq_result)
-// {
-// 	printf("== t_sresult ==\n");
-// 	printf("result:  %s\n", seq_result->result);
-// 	printf("seq_len: %zu\n", seq_result->seq_len);
-// }
-
-
+void	print_sresult(t_sresult *seq_result)
+{
+	printf("== t_sresult ==\n");
+	printf("result:  %s\n", seq_result->result);
+	printf("seq_len: %zu\n", seq_result->seq_len);
+}
 
 t_sdetails	*ft_init_sdetails(void)
 {
@@ -82,7 +80,7 @@ t_sresult	*ft_resolve_specifier(const char *format, va_list args)
 	details->index_spef = i;
 	spef_result->seq_len = i + 1;
 	ft_extr_sizes(details, format, spef_result->seq_len);
-	// print_sdetails(details);
+	print_sdetails(details);
 	spef_result->result = ft_resolve_arg(format, details, args);
 	free(details);
 	return (spef_result);
@@ -96,7 +94,7 @@ t_sresult	*ft_process_sequence(const char *format, va_list args)
 	{
 		seq_result = ft_resolve_specifier(format + 1, args);
 		++seq_result->seq_len;
-		// print_sresult(seq_result);
+		print_sresult(seq_result);
 		return (seq_result);
 	}
 	seq_result = malloc(sizeof(t_sresult));

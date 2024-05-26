@@ -177,13 +177,13 @@ int	main(void)
 	// char format[] = "'%.5'";
 	// output: '%.5'
 
-	// char format[] = "%. v s '%10s'";
-	// char var[] = "hello";
+	char format[] = "%. v s '%10s'";
+	char var[] = "hello";
 
-	char format[] = "'%u'";
-	unsigned int var = UINT_MAX;
+	// char format[] = "'%u'";
+	// unsigned int var = UINT_MAX;
 
-	printf("format: '%s' | var: '%u'\n\n", format, var);
+	printf("format: '%s' | var: '%s'\n\n", format, var);
 	char *temp = ft_strjoin("PRINTF: \t", format);
 	char *format_preq = ft_strjoin(temp, "\n");
 	free(temp);
@@ -195,7 +195,7 @@ int	main(void)
 	temp = ft_strjoin("FT_PRINTF: \t", format);
 	format_preq = ft_strjoin(temp, "\n");
 	free(temp);
-	ft_printf(format_preq, var);
+	// ft_printf(format_preq, var);
 	free(format_preq);
 
 	// ft_printf("");
