@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:49:59 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 15:34:23 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/26 20:57:03 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	print_sdetails(t_sdetails *details)
 	printf("is_plus:        %i\n", details->is_plus);
 	printf("index_size:     %zu\n", details->index_size);
 	printf("index_dot:      %zu\n", details->index_dot);
+	printf("index_spef:     %zu\n", details->index_spef);
 	printf("is_flag_set:    %i\n", details->is_flag_set);
 	printf("is_dot_invalid: %i\n", details->is_dot_invalid);
 	printf("is_invalid:     %i\n", details->is_invalid);
@@ -49,11 +50,11 @@ size_t	ft_extract_num(unsigned int *size, const char *format, size_t len)
 {
 	char	*extracted_num;
 
-	printf("LEN: %zu | format: %s\n", len, format);
+	// printf("LEN: %zu | format: %s\n", len, format);
 	extracted_num = ft_calloc(sizeof(char), len + 1);
 	ft_strlcpy(extracted_num, format, len + 1);
 	*size = (unsigned int)ft_atoi(extracted_num);
-	printf("EXTRACTED: %s | digit: %u\n", extracted_num, *size);
+	// printf("EXTRACTED: %s | digit: %u\n", extracted_num, *size);
 	free(extracted_num);
 	return (len);
 }
@@ -109,19 +110,11 @@ bool	ft_check_dot_specifier(const char spef_c, t_sdetails *details, size_t i)
 	return (false);
 }
 
-// Validates the specifier
-// If it encounters an invalid character or sequence of characters then it returns
-// Sets invalid attributes in t_sdetails
-// Returns (bool) if specifier is finished
-bool	ft_check_specifier(const char spef_c, t_sdetails *details, size_t i)
+bool	ft_check_start_flag(const char spef_c, t_sdetails *details, size_t i)
 {
-	bool	is_specifier_char;
 	bool	is_number;
 
-	is_specifier_char = ft_stringcludes(SPECIFIER_CHARS, spef_c);
 	is_number = ft_isdigit(spef_c);
-	if (is_specifier_char)
-		return (true);
 	if (!details->is_flag_set && (ft_is_start_flag(spef_c)
 			|| ((details->index_size != 0 || !details->is_dot)
 				&& spef_c == FLAG_ZERO)))
@@ -136,12 +129,47 @@ bool	ft_check_specifier(const char spef_c, t_sdetails *details, size_t i)
 		details->is_invalid = true;
 		return (true);
 	}
+	return (false);
+}
+
+// Validates the specifier
+// If it encounters an invalid character or sequence of characters then it returns
+// Sets invalid attributes in t_sdetails
+// Returns (bool) if specifier is finished
+bool	ft_check_specifier(const char spef_c, t_sdetails *details, size_t i)
+{
+	bool	is_specifier_char;
+	bool	is_number;
+
+	is_specifier_char = ft_stringcludes(SPECIFIER_CHARS, spef_c);
+	is_number = ft_isdigit(spef_c);
+	if (!is_specifier_char && !is_number && !ft_is_start_flag(spef_c)
+		&& spef_c != FLAG_ZERO && spef_c != FLAG_DOT && !details->is_dot)
+	{
+		details->is_invalid = true;
+		return (true);
+	}
+	if (is_specifier_char)
+		return (true);
+	if (ft_check_start_flag(spef_c, details, i))
+		return (true);
 	if (ft_check_dot_specifier(spef_c, details, i))
 		return (true);
 	return (false);
 }
 
+t_sdetails	*ft_init_sdetails(void)
+{
+	t_sdetails	*details;
 
+	details = malloc(sizeof(t_sdetails));
+	details->index_size = 0;
+	details->index_dot = 0;
+	details->is_flag_set = false;
+	details->is_dot_invalid = false;
+	details->is_invalid = false;
+	return (details);
+}
 
 // • %c Prints a single character.
 // • %s Prints a string (as defined by the common C convention).
@@ -155,11 +183,10 @@ bool	ft_check_specifier(const char spef_c, t_sdetails *details, size_t i)
 t_sresult	*ft_resolve_specifier(const char *format, va_list args)
 {
 	size_t		i;
-	char		*arg;
 	t_sdetails	*details;
 	t_sresult	*spef_result;
 
-	details = malloc(sizeof(t_sdetails));
+	details = ft_init_sdetails();
 	spef_result = malloc(sizeof(t_sresult));
 	i = 0;
 	while (format[i] != '\0')
@@ -169,15 +196,12 @@ t_sresult	*ft_resolve_specifier(const char *format, va_list args)
 		++i;
 	}
 	details->specifier = format[i];
+	details->index_spef = i;
 	spef_result->seq_len = i + 1;
 	ft_extract_sizes(details, format, spef_result->seq_len);
 	print_sdetails(details);
-	// resolve argument
-	// ft_resolve_arg(details, args);
+	spef_result->result = ft_resolve_arg(format, details, args);
 	free(details);
-	arg = va_arg(args, char *);
-	spef_result->result = ft_calloc(sizeof(char), ft_strlen(arg) + 1);
-	ft_strlcpy(spef_result->result, arg, ft_strlen(arg) + 1);
 	return (spef_result);
 }
 
@@ -207,9 +231,16 @@ char	*ft_string_format(const char *format, ...)
 	size_t		i;
 	t_sresult	*seq_result;
 
-	i = 0;
 	va_start(args, format);
-	result = NULL;
+	i = 0;
+	seq_result = ft_process_sequence(format + i, args);
+	i = seq_result->seq_len;
+	result = seq_result->result;
+	free(seq_result);
+	seq_result = ft_process_sequence(format + i, args);
+	ft_strappend(&result, &seq_result->result);
+	i += seq_result->seq_len;
+	free(seq_result);
 	while (format[i] != '\0')
 	{
 		seq_result = ft_process_sequence(format + i, args);
@@ -231,5 +262,5 @@ int	ft_printf(const char *format, ...)
 	ft_putstr(result);
 	printf("LEN: %zu\n", ft_strlen(result));
 	free(result);
-	return (0);
+	return (ft_strlen(result));
 }

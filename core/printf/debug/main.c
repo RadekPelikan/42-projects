@@ -148,6 +148,7 @@ void test_printf_minus(void)
 
 	char format[] = "TEST: '%-010d'\n";
 	int var = 30;
+
 	printf(format, var);
 }
 
@@ -176,7 +177,7 @@ int	main(void)
 	// char format[] = "'%.5'";
 	// output: '%.5'
 
-	char format[] = "'%+-+#010s'";
+	char format[] = "%. v s '%10s'";
 	char var[] = "hello";
 
 
@@ -195,5 +196,6 @@ int	main(void)
 	ft_printf(format_preq, var);
 	free(format_preq);
 
+	// ft_printf("");
 }
 

@@ -1,0 +1,170 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_spef_arg.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/26 18:58:11 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/05/26 19:00:25 by rpelikan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
+#include "../../include/ft_printf_helpers.h"
+
+char	*ft_resolve_spef_invalid_dot(const char *format, t_sdetails *details)
+{
+	char	*result;
+	char	*zero;
+
+	if (details->float_size != 0)
+	{
+		ft_errputstr("Invalid state\nft_resolve_spef_invalid_dot: float_size != 0\n");
+		return (NULL);
+	}
+	result = ft_calloc(sizeof(char), details->index_spef + 2);
+	ft_strlcpy(result, format - 1, details->index_spef + 2);
+	zero = ft_calloc(sizeof(char), 3);
+	zero[0] = '0';
+	zero[1] = details->specifier;
+	zero[2] = '\0';
+	ft_strappend(&result, &zero);
+	return (result);
+}
+
+char	*ft_resolve_spef_invalid(const char *format, t_sdetails *details)
+{
+	char	*result;
+
+	if (!details->is_invalid)
+	{
+		ft_errputstr("Invalid state\nft_resolve_spef_invalid: is_invalid == true\n");
+		return (NULL);
+	}
+	result = ft_substr(format - 1, 0, details->index_spef + 2);
+	return (result);
+}
+
+char	*ft_resolve_spef_char(t_sdetails *details, char c)
+{
+	char	*result;
+
+	(void)details;
+	result = ft_calloc(sizeof(char), 2);
+	result[0] = c;
+	result[1] = '\0';
+	return (result);
+}
+
+char	*ft_resolve_spef_str(t_sdetails *details, char *str)
+{
+	char	*result;
+
+	(void)details;
+	result = ft_calloc(sizeof(char), ft_strlen(str) + 1);
+	ft_strlcpy(result, str, ft_strlen(str) + 1);
+	return (result);
+}
+
+char	*ft_resolve_spef_ptr(t_sdetails *details, unsigned long n)
+{
+	char	*result;
+
+	(void)details;
+	(void)n;
+	result = ft_calloc(sizeof(char), 2);
+	result[0] = '0';
+	result[1] = '\0';
+	return (result);
+}
+
+char	*ft_resolve_spef_int(t_sdetails *details, int n)
+{
+	char	*result;
+
+	(void)details;
+	(void)n;
+	result = ft_calloc(sizeof(char), 2);
+	result[0] = '1';
+	result[1] = '\0';
+	return (result);
+}
+
+char	*ft_resolve_spef_uint(t_sdetails *details, unsigned int n)
+{
+	char	*result;
+
+	(void)details;
+	(void)n;
+	result = ft_calloc(sizeof(char), 2);
+	result[0] = '2';
+	result[1] = '\0';
+	return (result);
+}
+
+char	*ft_resolve_spef_lhex(t_sdetails *details, unsigned int n)
+{
+	char	*result;
+
+	(void)details;
+	(void)n;
+	result = ft_calloc(sizeof(char), 2);
+	result[0] = '3';
+	result[1] = '\0';
+	return (result);
+}
+
+char	*ft_resolve_spef_uhex(t_sdetails *details, unsigned int n)
+{
+	char	*result;
+
+	(void)details;
+	(void)n;
+	result = ft_calloc(sizeof(char), 2);
+	result[0] = '4';
+	result[1] = '\0';
+	return (result);
+}
+
+char	*ft_resolve_spef_percent(void)
+{
+	char	*result;
+
+	result = ft_calloc(sizeof(char), 2);
+	result[0] = '%';
+	result[1] = '\0';
+	return (result);
+}
+
+// • %c Prints a single character.
+// • %s Prints a string (as defined by the common C convention).
+// • %p The void * pointer argument has to be printed in hexadecimal format.
+// • %d Prints a decimal (base 10) number.
+// • %i Prints an integer in base 10.
+// • %u Prints an unsigned decimal (base 10) number.
+// • %x Prints a number in hexadecimal (base 16) lowercase format.
+// • %X Prints a number in hexadecimal (base 16) uppercase format.
+// • %% Prints a percent sign
+char	*ft_resolve_arg(const char *format, t_sdetails *details, va_list args)
+{
+	if (details->is_dot_invalid)
+		return (ft_resolve_spef_invalid_dot(format, details));
+	if (details->specifier == 'c')
+		return (ft_resolve_spef_char(details, va_arg(args, int)));
+	if (details->specifier == 's')
+		return (ft_resolve_spef_str(details, va_arg(args, char *)));
+	if (details->specifier == 'p')
+		return (ft_resolve_spef_ptr(details, va_arg(args, unsigned long)));
+	if (ft_stringcludes("di", details->specifier))
+		return (ft_resolve_spef_int(details, va_arg(args, int)));
+	if (details->specifier == 'u')
+		return (ft_resolve_spef_uint(details, va_arg(args, unsigned int)));
+	if (details->specifier == 'x')
+		return (ft_resolve_spef_lhex(details, va_arg(args, unsigned int)));
+	if (details->specifier == 'X')
+		return (ft_resolve_spef_uhex(details, va_arg(args, unsigned int)));
+	if (details->specifier == '%')
+		return (ft_resolve_spef_percent());
+	return (ft_resolve_spef_invalid(format, details));
+}

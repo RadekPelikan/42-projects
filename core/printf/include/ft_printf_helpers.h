@@ -6,31 +6,31 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:35 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 15:15:23 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/26 19:12:53 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_HELPERS_H
 # define FT_PRINTF_HELPERS_H
 
-
+# include "../libft/libft.h"
+# include "ft_str_utils.h"
+# include "ft_io.h"
 # include <ctype.h>
 # include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include "../libft/libft.h"
-# include "ft_str_utils.h"
 
-#define SPECIFIER_CHARS "cspdiuxX%"
+# define SPECIFIER_CHARS "cspdiuxX%"
 
-#define FLAG_MINUS '-'
-#define FLAG_ZERO '0'
-#define FLAG_HASH '#'
-#define FLAG_SPACE ' '
-#define FLAG_PLUS '+'
-#define FLAG_DOT '.'
+# define FLAG_MINUS '-'
+# define FLAG_ZERO '0'
+# define FLAG_HASH '#'
+# define FLAG_SPACE ' '
+# define FLAG_PLUS '+'
+# define FLAG_DOT '.'
 
 // (specifier) char
 // • %c Prints a single character.
@@ -57,23 +57,20 @@ typedef struct s_specifier_details
 	// Help attributes
 	size_t			index_size;
 	size_t			index_dot;
+	size_t			index_spef;
 	// Edge case
 	bool			is_flag_set;
 	bool			is_dot_invalid;
 	bool			is_invalid;
-} t_sdetails;
+}					t_sdetails;
 
 typedef struct s_sequence_result
 {
-	char	*result;
-	size_t	seq_len;
-} t_sresult;
+	char			*result;
+	size_t			seq_len;
+}					t_sresult;
 
-void	ft_putchar(char str);
-void	ft_putstr(char *str);
-void	ft_free_str(char *str);
-char	*ft_strappend(char **base, char **tail);
-char	*ft_strnjoin(char **strs);
-
+void				ft_free_str(char *str);
+char				*ft_resolve_arg(const char *format, t_sdetails *details,va_list args);
 
 #endif
