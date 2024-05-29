@@ -6,10 +6,9 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:58:11 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/29 18:50:58 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/29 20:18:58 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../include/ft_printf_helpers.h"
 
@@ -73,7 +72,6 @@ char	*ft_resolve_spef_ptr(t_sdetails *details, unsigned long n)
 
 	(void)details;
 	(void)n;
-	result = ft_calloc(sizeof(char), 2);
 	result = ft_ultostr(n, HEX_CHARS_LOWER);
 	return (result);
 }
@@ -103,7 +101,6 @@ char	*ft_resolve_spef_lhex(t_sdetails *details, unsigned int n)
 
 	(void)details;
 	(void)n;
-	result = ft_calloc(sizeof(char), 2);
 	result = ft_ultostr(n, HEX_CHARS_LOWER);
 	return (result);
 }
@@ -115,7 +112,6 @@ char	*ft_resolve_spef_uhex(t_sdetails *details, unsigned int n)
 
 	(void)details;
 	(void)n;
-	result = ft_calloc(sizeof(char), 2);
 	result = ft_ultostr(n, HEX_CHARS_UPPER);
 	return (result);
 }

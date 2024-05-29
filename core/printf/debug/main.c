@@ -201,10 +201,13 @@ int	main(void)
 	// free(format_preq);
 	///////////////////////////////
 
+	ft_printf("%x\n", 48646448);
 
-	unsigned int var = 8764864;
-	ft_printf("FT: %X\n", var);
-	printf("LI: %X\n", var);
 
+	// char *test = ft_alloc_str(10);
+	// ft_strlcpy(test, "hello", 6);
+	// ft_fill_upto(&test, '0', 11);
+	// printf("TEST: %s\n", test);
+	// free(test);
 }
 
