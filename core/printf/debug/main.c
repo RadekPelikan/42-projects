@@ -86,6 +86,10 @@ void test_printf_hash(void)
 	char format3[] = "TEST: '%#u'\n";
 	int var3 = 30;
 	printf(format3, var3);
+
+	char format4[] = "TEST: '%+#020x'\n";
+	int var4 = 30;
+	printf(format4, var4);
 }
 
 // Puts a plus sign in front of the number
@@ -98,9 +102,13 @@ void test_printf_plus(void)
 	printf("TEST: '%+d'\n", -30);
 	printf("TEST: '%+d'\n", 30);
 
-	char format[] = "TEST: '%+p'\n";
+	char format[] = "TEST: '%+20p'\n";
 	int var = 30;
 	printf(format, &var);
+
+	char formata[] = "TEST: '%+x'\n";
+	int vara = 30;
+	printf(formata, vara);
 
 	char format1[] = "TEST: '%+s'\n";
 	char var1[] = "hello";
@@ -109,6 +117,10 @@ void test_printf_plus(void)
 	char format2[] = "TEST: '%+u'\n";
 	int var2 = 30;
 	printf(format2, var2);
+
+	char format3[] = "TEST: '%+c'\n";
+	char var3 = 'c';
+	printf(format3, var3);
 }
 
 // Puts zeros for numbers at the front, filling the size
@@ -158,9 +170,9 @@ int	main(void)
 	// test_printf_percent();
 	// test_printf_dot();
 	// test_printf_space();
-	// test_printf_hash();
+	test_printf_hash();
 	// test_printf_plus();
-	test_printf_zero();
+	// test_printf_zero();
 	// test_printf_minus();
 
 	// If there is any invalid character or sequence of characters after %, then it is ignored and printed as it is
@@ -204,7 +216,11 @@ int	main(void)
 	// ft_printf("%x\n", 48646448);
 
 	int ptr = 4864886;
-	ft_printf("'%-020p'\n", &ptr);
-	// printf("'%20p'\n", &ptr);
+	ft_printf("'%#020X'\n", ptr);
+	// printf("'%#020x'\n", ptr);
 }
 
+
+// TODO: Zero doesn't have to be the last flag
+// printf("'%0+20d'\n", ptr);
+// 

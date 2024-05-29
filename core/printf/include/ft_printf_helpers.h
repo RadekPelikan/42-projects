@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:35 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/29 21:31:50 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/29 21:33:12 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ void	ft_fill_right(char **src, size_t len, char c);
 
 char	*ft_ultohex(unsigned long n);
 char	*ft_ultostr(unsigned long n, const char *chars);
+
+char	*ft_resolve_spef_invalid_dot(const char *format, t_sdetails *details);
+char	*ft_resolve_spef_invalid(const char *format, t_sdetails *details);
+
 
 void	ft_resolve_space_filling(t_sdetails *details, char **result);
 void	ft_resolve_zero_filling(t_sdetails *details, char **result);

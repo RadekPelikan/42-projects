@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 21:31:07 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/29 21:31:26 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/29 21:44:16 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_resolve_space_filling(t_sdetails *details, char **result)
 void	ft_resolve_zero_filling(t_sdetails *details, char **result)
 {
 	if (details->is_zero && !details->is_minus)
-		ft_fill_left(result, details->size, FILL_ZERO_CHAR);
+		ft_fill_left(result, details->size - (details->is_plus), FILL_ZERO_CHAR);
 	else
 		ft_resolve_space_filling(details, result);
 }
