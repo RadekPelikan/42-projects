@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:58:11 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/29 21:30:08 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/29 21:31:23 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,7 @@ char	*ft_resolve_spef_invalid(const char *format, t_sdetails *details)
 	return (result);
 }
 
-void	ft_resolve_space_filling(t_sdetails *details, char **result)
-{
-	if (details->is_minus)
-		ft_fill_right(result, details->size, FILL_SPACE_CHAR);
-	else
-		ft_fill_left(result, details->size, FILL_SPACE_CHAR);
-}
 
-void	ft_resolve_zero_filling(t_sdetails *details, char **result)
-{
-	if (details->is_zero && !details->is_minus)
-		ft_fill_left(result, details->size, FILL_ZERO_CHAR);
-	else
-		ft_resolve_space_filling(details, result);
-}
 
 char	*ft_resolve_spef_char(t_sdetails *details, char c)
 {
@@ -84,16 +70,7 @@ char	*ft_resolve_spef_str(t_sdetails *details, char *str)
 	return (result);
 }
 
-void	ft_appendhash(t_sdetails *details, char **result)
-{
-	char	*hash_str;
 
-	if (!details->is_hash)
-		return ;
-	hash_str = ft_alloc_str(2);
-	ft_strlcpy(hash_str, "0x", 3);
-	ft_strappend_start(result, &hash_str);
-}
 
 char	*ft_resolve_spef_ptr(t_sdetails *details, unsigned long n)
 {
@@ -102,9 +79,6 @@ char	*ft_resolve_spef_ptr(t_sdetails *details, unsigned long n)
 	(void)details;
 	(void)n;
 	result = ft_ultostr(n, HEX_CHARS_LOWER);
-	// This one will be a little bit tricky
-	// with is_zero: '0x0000007fffd5d5e57c'
-	// without:      '      0x7ffd7007125c'
 	details->is_hash = true;
 	if (details->is_zero && !details->is_minus)
 	{
