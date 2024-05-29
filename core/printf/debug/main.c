@@ -204,7 +204,7 @@ int	main(void)
 	// ft_printf("%x\n", 48646448);
 
 	int ptr = 4864886;
-	ft_printf("'%010x'\n", ptr);
-	printf("'%010x'\n", ptr);
+	ft_printf("'%-020p'\n", &ptr);
+	// printf("'%20p'\n", &ptr);
 }
 

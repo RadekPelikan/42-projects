@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:05 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/29 20:29:47 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/29 21:26:27 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ char	*ft_strappend(char **base, char **tail)
 	free(*tail);
 	*base = result;
 	return (result);
+}
+
+char	*ft_strappend_start(char **base, char **tail)
+{
+	ft_strappend(tail, base);
+	*base = *tail;
+	return (*base);
 }
 
 char	*ft_strnjoin(char **strs)
