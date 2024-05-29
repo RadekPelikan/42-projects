@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:35 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/29 20:43:40 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/29 20:46:14 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@
 // arg
 char	*ft_resolve_arg(const char *format, t_sdetails *details, va_list args);
 
-void	ft_fill_upto(char **src, size_t len, char c);
+void	ft_fill_left(char **src, size_t len, char c);
+void	ft_fill_right(char **src, size_t len, char c);
+
 
 char	*ft_ultohex(unsigned long n);
 char	*ft_ultostr(unsigned long n, const char *chars);

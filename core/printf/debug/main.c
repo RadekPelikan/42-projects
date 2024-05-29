@@ -210,8 +210,14 @@ int	main(void)
 
 	char *test = ft_alloc_str(5);
 	ft_strlcpy(test, "hello", 6);
-	ft_fill_upto(&test, 10, '0');
-	printf("TEST: %s\n", test);
+	ft_fill_right(&test, 2, '0');
+	printf("RIGHT:\t%s\n", test);
+	free(test);
+
+	test = ft_alloc_str(5);
+	ft_strlcpy(test, "hello", 6);
+	ft_fill_left(&test, 10, '0');
+	printf("LEFT:\t%s\n", test);
 	free(test);
 }
 
