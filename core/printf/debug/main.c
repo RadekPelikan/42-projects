@@ -167,7 +167,7 @@ int	main(void)
 	// char format[] = "'%4'";
 	// output: '%4'
 	// exept for '.', if there is an invalid character, then there will be zero added
-	// char format[] = "'%.v'";
+	// char format[] = "'%.55v'";
 	// output: '%.0v'
 	// char format[] = "'%.'";
 	// output: '%.0'
@@ -177,27 +177,34 @@ int	main(void)
 	// char format[] = "'%.5'";
 	// output: '%.5'
 
-	char format[] = "%. v s '%10s'";
-	char var[] = "hello";
 
-	// char format[] = "'%u'";
-	// unsigned int var = UINT_MAX;
+	///////////////////////////////
+	// char format[] = "%. v s '%10s'";
+	// char var[] = "hello";
 
-	printf("format: '%s' | var: '%s'\n\n", format, var);
-	char *temp = ft_strjoin("PRINTF: \t", format);
-	char *format_preq = ft_strjoin(temp, "\n");
-	free(temp);
+	// // char format[] = "'%u'";
+	// // unsigned int var = UINT_MAX;
 
-	printf(format_preq, var);
+	// printf("format: '%s' | var: '%s'\n\n", format, var);
+	// char *temp = ft_strjoin("PRINTF: \t", format);
+	// char *format_preq = ft_strjoin(temp, "\n");
+	// free(temp);
 
-	printf("\n|||||||||||| DEBUG PART ||||||||||||\n");
-	free(format_preq);
-	temp = ft_strjoin("FT_PRINTF: \t", format);
-	format_preq = ft_strjoin(temp, "\n");
-	free(temp);
-	// ft_printf(format_preq, var);
-	free(format_preq);
+	// printf(format_preq, var);
 
-	// ft_printf("");
+	// printf("\n|||||||||||| DEBUG PART ||||||||||||\n");
+	// free(format_preq);
+	// temp = ft_strjoin("FT_PRINTF: \t", format);
+	// format_preq = ft_strjoin(temp, "\n");
+	// free(temp);
+	// // ft_printf(format_preq, var);
+	// free(format_preq);
+	///////////////////////////////
+
+
+	unsigned int var = 8764864;
+	ft_printf("FT: %X\n", var);
+	printf("LI: %X\n", var);
+
 }
 

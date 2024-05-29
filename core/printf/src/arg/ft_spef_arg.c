@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:58:11 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 21:47:55 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:50:58 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ char	*ft_resolve_spef_ptr(t_sdetails *details, unsigned long n)
 	(void)details;
 	(void)n;
 	result = ft_calloc(sizeof(char), 2);
-	result[0] = '0';
-	result[1] = '\0';
+	result = ft_ultostr(n, HEX_CHARS_LOWER);
 	return (result);
 }
 
@@ -97,6 +96,7 @@ char	*ft_resolve_spef_uint(t_sdetails *details, unsigned int n)
 	return (result);
 }
 
+// Prints hex in lower case
 char	*ft_resolve_spef_lhex(t_sdetails *details, unsigned int n)
 {
 	char	*result;
@@ -104,11 +104,11 @@ char	*ft_resolve_spef_lhex(t_sdetails *details, unsigned int n)
 	(void)details;
 	(void)n;
 	result = ft_calloc(sizeof(char), 2);
-	result[0] = '3';
-	result[1] = '\0';
+	result = ft_ultostr(n, HEX_CHARS_LOWER);
 	return (result);
 }
 
+// Prints hex in upper case
 char	*ft_resolve_spef_uhex(t_sdetails *details, unsigned int n)
 {
 	char	*result;
@@ -116,8 +116,7 @@ char	*ft_resolve_spef_uhex(t_sdetails *details, unsigned int n)
 	(void)details;
 	(void)n;
 	result = ft_calloc(sizeof(char), 2);
-	result[0] = '4';
-	result[1] = '\0';
+	result = ft_ultostr(n, HEX_CHARS_UPPER);
 	return (result);
 }
 
@@ -142,8 +141,6 @@ char	*ft_resolve_spef_percent(void)
 // • %% Prints a percent sign
 char	*ft_resolve_arg(const char *format, t_sdetails *details, va_list args)
 {
-	if (details->is_dot_invalid)
-		return (ft_resolve_spef_invalid_dot(format, details));
 	if (details->specifier == 'c')
 		return (ft_resolve_spef_char(details, va_arg(args, int)));
 	if (details->specifier == 's')
@@ -160,5 +157,7 @@ char	*ft_resolve_arg(const char *format, t_sdetails *details, va_list args)
 		return (ft_resolve_spef_uhex(details, va_arg(args, unsigned int)));
 	if (details->specifier == '%')
 		return (ft_resolve_spef_percent());
+	if (details->is_dot_invalid)
+		return (ft_resolve_spef_invalid_dot(format, details));
 	return (ft_resolve_spef_invalid(format, details));
 }

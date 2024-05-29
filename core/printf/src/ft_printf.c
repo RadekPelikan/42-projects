@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:49:59 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 22:09:33 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:50:35 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_sresult	*ft_resolve_specifier(const char *format, va_list args)
 	details->index_spef = i;
 	spef_result->seq_len = i + 1;
 	ft_extr_sizes(details, format, spef_result->seq_len);
-	print_sdetails(details);
+	// print_sdetails(details);
 	spef_result->result = ft_resolve_arg(format, details, args);
 	free(details);
 	return (spef_result);
@@ -94,7 +94,7 @@ t_sresult	*ft_process_sequence(const char *format, va_list args)
 	{
 		seq_result = ft_resolve_specifier(format + 1, args);
 		++seq_result->seq_len;
-		print_sresult(seq_result);
+		// print_sresult(seq_result);
 		return (seq_result);
 	}
 	seq_result = malloc(sizeof(t_sresult));
@@ -141,7 +141,7 @@ int	ft_printf(const char *format, ...)
 
 	result = ft_string_format(format);
 	ft_putstr(result);
-	printf("LEN: %zu\n", ft_strlen(result));
+	// printf("LEN: %zu\n", ft_strlen(result));
 	free(result);
 	return (ft_strlen(result));
 }
