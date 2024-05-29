@@ -203,21 +203,8 @@ int	main(void)
 
 	// ft_printf("%x\n", 48646448);
 
-
-	// char *result = ft_charrepeat('c', 10);
-	// printf("REPEAT: %s\n", result);
-	// free(result);
-
-	char *test = ft_alloc_str(5);
-	ft_strlcpy(test, "hello", 6);
-	ft_fill_right(&test, 2, '0');
-	printf("RIGHT:\t%s\n", test);
-	free(test);
-
-	test = ft_alloc_str(5);
-	ft_strlcpy(test, "hello", 6);
-	ft_fill_left(&test, 10, '0');
-	printf("LEFT:\t%s\n", test);
-	free(test);
+	int ptr = 1;
+	ft_printf("'%10i'\n", ptr);
+	printf("'%10i'\n", ptr);
 }
 

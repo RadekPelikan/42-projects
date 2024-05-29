@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:58:11 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/29 20:18:58 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/29 21:02:22 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@ char	*ft_resolve_spef_invalid(const char *format, t_sdetails *details)
 	return (result);
 }
 
+void	ft_resolve_filling(t_sdetails *details, char **result)
+{
+	if (details->is_minus)
+		ft_fill_right(result, details->size, FILL_CHAR);
+	else
+		ft_fill_left(result, details->size, FILL_CHAR);
+}
+
 char	*ft_resolve_spef_char(t_sdetails *details, char c)
 {
 	char	*result;
@@ -53,6 +61,7 @@ char	*ft_resolve_spef_char(t_sdetails *details, char c)
 	result = ft_calloc(sizeof(char), 2);
 	result[0] = c;
 	result[1] = '\0';
+	ft_resolve_filling(details, &result);
 	return (result);
 }
 
@@ -63,6 +72,7 @@ char	*ft_resolve_spef_str(t_sdetails *details, char *str)
 	(void)details;
 	result = ft_calloc(sizeof(char), ft_strlen(str) + 1);
 	ft_strlcpy(result, str, ft_strlen(str) + 1);
+	ft_resolve_filling(details, &result);
 	return (result);
 }
 
@@ -73,6 +83,7 @@ char	*ft_resolve_spef_ptr(t_sdetails *details, unsigned long n)
 	(void)details;
 	(void)n;
 	result = ft_ultostr(n, HEX_CHARS_LOWER);
+	ft_resolve_filling(details, &result);
 	return (result);
 }
 
@@ -82,6 +93,7 @@ char	*ft_resolve_spef_int(t_sdetails *details, int n)
 
 	(void)details;
 	result = ft_itoa(n);
+	ft_resolve_filling(details, &result);
 	return (result);
 }
 
@@ -91,6 +103,7 @@ char	*ft_resolve_spef_uint(t_sdetails *details, unsigned int n)
 
 	(void)details;
 	result = ft_utoa(n);
+	ft_resolve_filling(details, &result);
 	return (result);
 }
 
@@ -102,6 +115,7 @@ char	*ft_resolve_spef_lhex(t_sdetails *details, unsigned int n)
 	(void)details;
 	(void)n;
 	result = ft_ultostr(n, HEX_CHARS_LOWER);
+	ft_resolve_filling(details, &result);
 	return (result);
 }
 
@@ -113,6 +127,7 @@ char	*ft_resolve_spef_uhex(t_sdetails *details, unsigned int n)
 	(void)details;
 	(void)n;
 	result = ft_ultostr(n, HEX_CHARS_UPPER);
+	ft_resolve_filling(details, &result);
 	return (result);
 }
 
