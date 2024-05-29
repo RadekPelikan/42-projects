@@ -160,7 +160,7 @@ int	main(void)
 	// test_printf_space();
 	// test_printf_hash();
 	// test_printf_plus();
-	// test_printf_zero();
+	test_printf_zero();
 	// test_printf_minus();
 
 	// If there is any invalid character or sequence of characters after %, then it is ignored and printed as it is
@@ -203,8 +203,8 @@ int	main(void)
 
 	// ft_printf("%x\n", 48646448);
 
-	int ptr = 1;
-	ft_printf("'%10i'\n", ptr);
-	printf("'%10i'\n", ptr);
+	int ptr = 4864886;
+	ft_printf("'%010x'\n", ptr);
+	printf("'%010x'\n", ptr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:35 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/29 20:56:41 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/29 21:07:53 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@
 # define FLAG_PLUS '+'
 # define FLAG_DOT '.'
 
-# define FILL_CHAR ' '
+# define FILL_SPACE_CHAR ' '
+# define FILL_ZERO_CHAR '0'
 
 # define HEX_CHARS_LOWER "0123456789abcdef"
 # define HEX_CHARS_UPPER "0123456789ABCDEF"
