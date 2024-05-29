@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:58:11 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/29 21:51:58 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/29 22:11:41 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,6 @@ char	*ft_resolve_spef_str(t_sdetails *details, char *str)
 	return (result);
 }
 
-void	ft_resolve_plus(t_sdetails *details, char **result)
-{
-	char	*plus_str;
-
-	if (!details->is_plus)
-		return ;
-	plus_str = ft_alloc_str(2);
-	ft_strlcpy(plus_str, "+", 3);
-	ft_strappend_start(result, &plus_str);
-}
 
 char	*ft_resolve_spef_ptr(t_sdetails *details, unsigned long n)
 {
@@ -56,9 +46,7 @@ char	*ft_resolve_spef_ptr(t_sdetails *details, unsigned long n)
 	details->is_hash = true;
 	if (details->is_zero && !details->is_minus)
 	{
-		ft_fill_left(&result, details->size - 2 - (details->is_plus),
-			FILL_ZERO_CHAR);
-		ft_appendhash(details, &result);
+		ft_reolve_zero_hash_filling(details, &result);
 		ft_resolve_plus(details, &result);
 	}
 	else
@@ -101,11 +89,7 @@ char	*ft_resolve_spef_lhex(t_sdetails *details, unsigned int n)
 	result = ft_ultostr(n, HEX_CHARS_LOWER);
 	details->is_plus = false;
 	if (details->is_zero && !details->is_minus)
-	{
-		ft_fill_left(&result, details->size - 2 - (details->is_plus),
-			FILL_ZERO_CHAR);
-		ft_appendhash(details, &result);
-	}
+		ft_reolve_zero_hash_filling(details, &result);
 	else
 	{
 		ft_appendhash(details, &result);
@@ -125,8 +109,8 @@ char	*ft_resolve_spef_uhex(t_sdetails *details, unsigned int n)
 	details->is_plus = false;
 	if (details->is_zero && !details->is_minus)
 	{
-		ft_fill_left(&result, details->size - 2 - (details->is_plus),
-			FILL_ZERO_CHAR);
+		ft_fill_left(&result, (details->size - 2 - (details->is_plus))
+			* (details->size != 0), FILL_ZERO_CHAR);
 		ft_appendhash(details, &result);
 	}
 	else

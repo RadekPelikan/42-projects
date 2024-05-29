@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:35 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/29 21:33:12 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/29 22:11:16 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ char	*ft_resolve_spef_invalid(const char *format, t_sdetails *details);
 
 void	ft_resolve_space_filling(t_sdetails *details, char **result);
 void	ft_resolve_zero_filling(t_sdetails *details, char **result);
+void	ft_resolve_plus(t_sdetails *details, char **result);
 void	ft_appendhash(t_sdetails *details, char **result);
+void	ft_reolve_zero_hash_filling(t_sdetails *details, char **result);
 
 
 // spef (specifier)

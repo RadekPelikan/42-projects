@@ -87,7 +87,7 @@ void test_printf_hash(void)
 	int var3 = 30;
 	printf(format3, var3);
 
-	char format4[] = "TEST: '%+#020x'\n";
+	char format4[] = "TEST: '%#0-20.5X'\n";
 	int var4 = 30;
 	printf(format4, var4);
 }
@@ -186,9 +186,7 @@ int	main(void)
 	// char format[] = "'%.";
 	// output: '%.0
 	// and if there will be an number, then it will be printed as it is
-	// char format[] = "'%.5'";
-	// output: '%.5'
-
+	// char format[] = "'%.5'";%#0+20.5X
 
 	///////////////////////////////
 	// char format[] = "%. v s '%10s'";
@@ -216,11 +214,11 @@ int	main(void)
 	// ft_printf("%x\n", 48646448);
 
 	int ptr = 4864886;
-	ft_printf("'%#020X'\n", ptr);
-	// printf("'%#020x'\n", ptr);
+	printf("'%0.5x'\n", ptr);
+	ft_printf("'%#0-20.5X'\n", ptr);
 }
 
 
-// TODO: Zero doesn't have to be the last flag
-// printf("'%0+20d'\n", ptr);
-// 
+// TODO: + or - doesn't have to be at the start
+// printf("'%#0-20.5x'\n", ptr);
+// printf("'%#0+20.5X'\n", ptr);
