@@ -201,13 +201,17 @@ int	main(void)
 	// free(format_preq);
 	///////////////////////////////
 
-	ft_printf("%x\n", 48646448);
+	// ft_printf("%x\n", 48646448);
 
 
-	// char *test = ft_alloc_str(10);
-	// ft_strlcpy(test, "hello", 6);
-	// ft_fill_upto(&test, '0', 11);
-	// printf("TEST: %s\n", test);
-	// free(test);
+	// char *result = ft_charrepeat('c', 10);
+	// printf("REPEAT: %s\n", result);
+	// free(result);
+
+	char *test = ft_alloc_str(5);
+	ft_strlcpy(test, "hello", 6);
+	ft_fill_upto(&test, 10, '0');
+	printf("TEST: %s\n", test);
+	free(test);
 }
 

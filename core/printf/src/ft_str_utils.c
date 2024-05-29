@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:05 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 21:53:32 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/29 20:29:47 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,22 @@ char	*ft_strrepeat(const char *str, size_t n)
 			++i;
 			++j;
 		}
+	}
+	result[i] = '\0';
+	return (result);
+}
+
+char	*ft_charrepeat(const char c, size_t n)
+{
+	char	*result;
+	size_t	i;
+	
+	result = ft_alloc_str(n);
+	i = 0;
+	while(i < n)
+	{
+		result[i] = c;
+		++i;
 	}
 	result[i] = '\0';
 	return (result);

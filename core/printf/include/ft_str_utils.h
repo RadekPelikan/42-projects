@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:14 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 21:54:23 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/29 20:43:32 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 char	*ft_strappend(char **base, char **tail);
 char	*ft_strnjoin(char **strs);
 bool	ft_stringcludes(char *str, char c);
-char	*ft_strrepeat(const char *str, size_t n);	
+char	*ft_strrepeat(const char *str, size_t n);
+char	*ft_charrepeat(const char c, size_t n);
 
 #endif
