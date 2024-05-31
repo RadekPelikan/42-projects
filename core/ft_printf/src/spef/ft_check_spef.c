@@ -6,11 +6,11 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 20:59:10 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 21:15:13 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:48:52 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf_helpers.h"
+#include "ft_printf_helpers.h"
 
 bool	ft_is_start_flag(char c)
 {

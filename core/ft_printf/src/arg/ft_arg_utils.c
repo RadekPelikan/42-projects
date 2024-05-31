@@ -6,11 +6,11 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:59:35 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/29 20:50:52 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:49:53 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf_helpers.h"
+#include "ft_printf_helpers.h"
 
 void	ft_fill_left(char **src, size_t len, char c)
 {

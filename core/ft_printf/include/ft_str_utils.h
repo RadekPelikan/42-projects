@@ -6,14 +6,14 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:14 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/29 21:20:01 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:49:28 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_STR_UTILS_H
 # define FT_STR_UTILS_H
 
-# include "../libft/libft.h"
+# include "libft.h"
 # include <stdbool.h>
 
 char	*ft_strappend(char **base, char **tail);

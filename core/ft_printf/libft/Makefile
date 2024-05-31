@@ -18,7 +18,7 @@ bonus:		${OBJS_BONUS}
 			ar -rcs ${NAME} ${OBJS_BONUS}
 	
 .c.o:
-			$(CC) $(FLAGS) -c $< -o $(<:.c=.o)
+			$(CC) $(FLAGS) -c $< -o $(<:.c=.o) -I.
 
 so:
 	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRCS)

@@ -6,14 +6,14 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:35 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/29 22:11:16 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/31 21:06:13 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_HELPERS_H
 # define FT_PRINTF_HELPERS_H
 
-# include "../libft/libft.h"
+# include "libft.h"
 # include "ft_io.h"
 # include "ft_printf_types.h"
 # include "ft_str_utils.h"

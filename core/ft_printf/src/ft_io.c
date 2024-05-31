@@ -6,11 +6,11 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:07 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 17:16:11 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:48:35 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf_helpers.h"
+#include "ft_printf_helpers.h"
 
 void	ft_putchar(char str)
 {

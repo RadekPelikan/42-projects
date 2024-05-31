@@ -1,21 +1,25 @@
-OBJ_DIR		:= ./obj
-SRC_DIRS	:= ./src ./src/arg ./src/spef
+SRC_DIR		:= ./src
 LIB_DIR		:= ./lib
+INC_DIRS	:= ./include ./libft
 DEBUG_DIR	:= ./debug
 BUILD_DIR	:= .
 
-FLAGS		:= -Wall -Wextra -Werror
+FLAGS		:= -Wall -Wextra -Werror 
 
 CC			:= clang
-LIBC		:= ar rcs
+LIBC		:= ar -rcs
 RM			:= rm -rf
+
 
 NAME		:=	libftprintf.a
 SO_NAME		:=	$(NAME:.a=.so)
 DEBUG_BIN	:= $(DEBUG_DIR)/bin
 
-SRCS := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
-OBJS := $(foreach srcdir,$(SRC_DIRS),$(patsubst $(srcdir)/%.c,$(OBJ_DIR)/$(notdir $(srcdir))/%.o,$(wildcard $(srcdir)/*.c)))
+INCFLAGS	:= $(foreach dir, $(INC_DIRS), -I$(dir))
+CFLAGS		:= $(FLAGS) $(INCFLAGS)
+
+SRCS := $(shell find $(SRC_DIR) -name "*.c")
+OBJS := $(SRCS:.c=.o)
 
 DEBUG_SRCS := $(wildcard $(DEBUG_DIR)/*.c)
 DEBUG_OBJS := $(DEBUG_SRCS:.c=.o)
@@ -26,16 +30,16 @@ SO_OBJ	:= $(BUILD_DIR)/$(SO_NAME)
 all: .MKDIR_BUILD buildLibft $(NAME)
 
 $(NAME): $(OBJS)
-	$(LIBC) $(AR_OBJ) $(LIB_DIR)/*.a $^ 
+	$(LIBC) $(AR_OBJ) $^ 
 	
 buildLibft:
 	mkdir -p $(LIB_DIR)
 	make -C ./libft
-	mv ./libft/libft.a $(LIB_DIR)/ 
+	mv ./libft/libft.a $(LIB_DIR)/
 
-$(OBJ_DIR)/%.o: $(SRCS)
+%.o: %.c
 	mkdir -p $(dir $@)
-	$(CC) $(FLAGS) -c -o $@ $<	
+	$(CC) $(CFLAGS) -c -o $@ $< 
 
 re:	fclean all
 
@@ -59,13 +63,7 @@ buildDebug: .DEBUG_FLAG buildLibft $(SO_OBJ) $(DEBUG_OBJS)
 so: .MKDIR_BUILD $(SO_OBJ) 
 
 $(SO_OBJ): $(SRCS)
-	$(CC) $(FLAGS) -o $(SO_OBJ) -fPIC -shared $^
-
-%.o: %.c
-	$(CC) $(FLAGS) -c -o $@ $<
-
-%.o: %.h
-	$(CC) $(FLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -o $(SO_OBJ) -fPIC -shared $^
 
 diff:
 	@git status
