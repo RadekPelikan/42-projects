@@ -1,6 +1,5 @@
 SRC_DIR		:= ./src
-LIB_DIR		:= ./lib
-INC_DIRS	:= ./include ./libft
+INC_DIRS	:= ./include
 DEBUG_DIR	:= ./debug
 BUILD_DIR	:= .
 
@@ -10,7 +9,7 @@ CC			:= clang
 LIBC		:= ar -rcs
 RM			:= rm -rf
 
-
+LIBFT		:= ./lib/libft.a
 NAME		:=	libftprintf.a
 SO_NAME		:=	$(NAME:.a=.so)
 DEBUG_BIN	:= $(DEBUG_DIR)/bin
@@ -27,15 +26,17 @@ DEBUG_OBJS := $(DEBUG_SRCS:.c=.o)
 AR_OBJ	:= $(BUILD_DIR)/$(NAME)
 SO_OBJ	:= $(BUILD_DIR)/$(SO_NAME)
 
-all: .MKDIR_BUILD buildLibft $(NAME)
+all: $(BUILD_DIR) $(LIBFT) $(NAME)
 
 $(NAME): $(OBJS)
-	$(LIBC) $(AR_OBJ) $^ 
+# Doesnt work with multiple libs
+	cp $(LIBFT) $(AR_OBJ)
+	$(LIBC) $(AR_OBJ) $^
 	
-buildLibft:
-	mkdir -p $(LIB_DIR)
-	make -C ./libft
-	mv ./libft/libft.a $(LIB_DIR)/
+$(LIBFT):
+	mkdir -p $(dir $(LIBFT))
+	make bonus -C ./libft
+	mv ./libft/libft.a $(dir $(LIBFT))
 
 %.o: %.c
 	mkdir -p $(dir $@)
@@ -54,13 +55,13 @@ run: buildDebug
 	@echo
 	@$(DEBUG_BIN)
 
-gdb: .DEBUG_FLAG buildDebug
+gdb: re buildDebug
 	@gdb $(DEBUG_BIN)
 
-buildDebug: .DEBUG_FLAG buildLibft $(SO_OBJ) $(DEBUG_OBJS)
-	$(CC) -o $(DEBUG_BIN) $(SO_OBJ) $(DEBUG_OBJS) -L$(LIB_DIR) -lft
+buildDebug: .DEBUG_FLAG $(LIBFT) $(SO_OBJ) $(DEBUG_OBJS)
+	$(CC) -o $(DEBUG_BIN) $(SO_OBJ) $(DEBUG_OBJS) -L$(dir $(LIBFT)) -lft
 
-so: .MKDIR_BUILD $(SO_OBJ) 
+so: $(BUILD_DIR) $(SO_OBJ) 
 
 $(SO_OBJ): $(SRCS)
 	$(CC) $(CFLAGS) -o $(SO_OBJ) -fPIC -shared $^
@@ -69,11 +70,11 @@ diff:
 	@git status
 	@git --no-pager diff --stat
 
-.MKDIR_BUILD:
+$(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 .DEBUG_FLAG:
-	$(eval FLAGS += -g)
+	$(eval CFLAGS += -g)
 
 
-.PHONY:	all buildLibft re fclean clean run gdb buildDebug so diff .MKDIR_BUILD .DEBUG_FLAG
+.PHONY:	all re fclean clean run gdb buildDebug so diff .MKDIR_BUILD .DEBUG_FLAG

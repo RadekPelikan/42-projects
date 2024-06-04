@@ -6,23 +6,14 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:35 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/31 21:06:13 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:08:54 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_HELPERS_H
 # define FT_PRINTF_HELPERS_H
 
-# include "libft.h"
-# include "ft_io.h"
-# include "ft_printf_types.h"
-# include "ft_str_utils.h"
-// # include <ctype.h>
-# include <stdarg.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
+#include "ft_printf_types.h"
 
 # define SPECIFIER_CHARS "cspdiuxX%"
 

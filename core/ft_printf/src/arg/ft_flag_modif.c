@@ -6,11 +6,11 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 21:31:07 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/31 20:49:05 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/06/01 15:55:39 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_helpers.h"
+#include "ft_printf.h"
 
 void	ft_resolve_space_filling(t_sdetails *details, char **result)
 {

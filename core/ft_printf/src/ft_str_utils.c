@@ -6,11 +6,11 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:50:05 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/31 20:48:47 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/06/01 15:55:20 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_str_utils.h"
+#include "ft_printf.h"
 
 char	*ft_strappend(char **base, char **tail)
 {

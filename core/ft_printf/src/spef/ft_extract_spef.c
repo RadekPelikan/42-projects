@@ -6,11 +6,11 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 21:05:11 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/31 20:48:56 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/06/01 15:55:34 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_helpers.h"
+#include "ft_printf.h"
 
 // Returns the number of characters than were extracted from the format
 size_t	ft_extr_num(unsigned int *size, const char *format, size_t len)

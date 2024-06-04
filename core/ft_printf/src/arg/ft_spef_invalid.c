@@ -6,11 +6,11 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 21:32:43 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/31 20:50:29 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/06/01 15:55:48 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_helpers.h"
+#include "ft_printf.h"
 
 char	*ft_resolve_spef_invalid_dot(const char *format, t_sdetails *details)
 {

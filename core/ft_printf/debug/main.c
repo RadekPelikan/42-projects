@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "../include/ft_printf.h"
-#include "../include/ft_printf_helpers.h"
 
 // Size (first digit) determines the entire length of the resolved specifier
 
@@ -170,7 +169,7 @@ int	main(void)
 	// test_printf_percent();
 	// test_printf_dot();
 	// test_printf_space();
-	test_printf_hash();
+	// test_printf_hash();
 	// test_printf_plus();
 	// test_printf_zero();
 	// test_printf_minus();
@@ -213,9 +212,16 @@ int	main(void)
 
 	// ft_printf("%x\n", 48646448);
 
-	int ptr = 4864886;
-	printf("'%0.5x'\n", ptr);
-	ft_printf("'%#0-20.5X'\n", ptr);
+	// int ptr = 4864886;
+	// printf("'%0.5x'\n", ptr);
+	// ft_printf("'%#0-20.5X'\n", ptr);
+
+	int result1 = ft_printf("' %c %c %c '", '0', 0, '1');
+	printf("\n");
+	int result2 = printf("' %c %c %c '", '0', 0, '1');
+	printf("\n");
+	ft_printf("Length1: %d\n", result1);
+	ft_printf("Length2: %d\n", result2);
 }
 
 

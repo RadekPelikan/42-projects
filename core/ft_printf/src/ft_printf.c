@@ -6,11 +6,11 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:49:59 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/31 20:48:43 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/06/04 18:35:24 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_helpers.h"
+#include "ft_printf.h"
 
 void	print_sdetails(t_sdetails *details)
 {
@@ -43,12 +43,22 @@ t_sdetails	*ft_init_sdetails(void)
 {
 	t_sdetails	*details;
 
-	details = malloc(sizeof(t_sdetails));
+	details = (t_sdetails *)malloc(sizeof(t_sdetails));
+	details->size = 0;
+	details->float_size = 0;
+	details->specifier = 0;
+	details->is_minus = 0;
+	details->is_zero = 0;
+	details->is_dot = 0;
+	details->is_hash = 0;
+	details->is_space = 0;
+	details->is_plus = 0;
 	details->index_size = 0;
 	details->index_dot = 0;
-	details->is_flag_set = false;
-	details->is_dot_invalid = false;
-	details->is_invalid = false;
+	details->index_spef = 0;
+	details->is_flag_set = 0;
+	details->is_dot_invalid = 0;
+	details->is_invalid = 0;
 	return (details);
 }
 
@@ -119,6 +129,13 @@ char	*ft_string_format(const char *format, ...)
 	result = seq_result->result;
 	free(seq_result);
 	seq_result = ft_process_sequence(format + i, args);
+	if (!*seq_result->result)
+	{
+		free(seq_result->result);
+		free(seq_result);
+		va_end(args);
+		return result;
+	}
 	ft_strappend(&result, &seq_result->result);
 	i += seq_result->seq_len;
 	free(seq_result);
@@ -138,10 +155,12 @@ char	*ft_string_format(const char *format, ...)
 int	ft_printf(const char *format, ...)
 {
 	char	*result;
+	size_t	len;
 
 	result = ft_string_format(format);
 	ft_putstr(result);
-	// printf("LEN: %zu\n", ft_strlen(result));
+	len = ft_strlen(result);
+	// printf("LEN: %zu\n", len);
 	free(result);
-	return (ft_strlen(result));
+	return (len);
 }

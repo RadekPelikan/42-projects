@@ -6,11 +6,11 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:58:11 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/31 20:49:12 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/06/01 20:49:16 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_helpers.h"
+#include "ft_printf.h"
 
 char	*ft_resolve_spef_char(t_sdetails *details, char c)
 {

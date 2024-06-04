@@ -6,15 +6,15 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 21:06:25 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 21:11:01 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:07:47 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_TYPES_H
 # define FT_PRINTF_TYPES_H
 
-# include <unistd.h>
-# include <stdbool.h>
+#include <stdbool.h>
+#include <stdio.h>
 
 // (specifier) char
 // • %c Prints a single character.

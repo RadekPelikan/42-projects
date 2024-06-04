@@ -14,8 +14,8 @@ all:		$(NAME)
 $(NAME):	$(OBJS)
 			ar -rcs $(NAME) $(OBJS)
 
-bonus:		${OBJS_BONUS}
-			ar -rcs ${NAME} ${OBJS_BONUS}
+bonus:		$(OBJS) ${OBJS_BONUS}
+			ar -rcs ${NAME} $(OBJS) ${OBJS_BONUS}
 	
 .c.o:
 			$(CC) $(FLAGS) -c $< -o $(<:.c=.o) -I.
