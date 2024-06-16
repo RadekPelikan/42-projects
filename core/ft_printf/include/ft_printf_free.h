@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf_free.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 17:50:33 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/06/16 14:39:25 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/06/16 14:38:26 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/06/16 15:38:19 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef FT_PRINTF_FREE_H
+# define FT_PRINTF_FREE_H
 
-# include "../libft/libft.h"
-# include "ft_io.h"
-# include "ft_printf_free.h"
-# include "ft_printf_helpers.h"
 # include "ft_printf_types.h"
-# include "ft_str_utils.h"
 
-char	*ft_string_format(const char *format, ...);
-int		ft_printf(const char *format, ...);
+void	free_sresult(t_sresult *sresult);
+void	free_seqresult(t_seqresult *seqresult);
+void	free_seqresult_keep_str(t_seqresult *seqresult);
+void	free_fresult(t_fresult *fresult);
 
 #endif

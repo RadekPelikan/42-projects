@@ -28,6 +28,8 @@ SO_OBJ	:= $(BUILD_DIR)/$(SO_NAME)
 
 all: $(BUILD_DIR) $(LIBFT) $(NAME)
 
+# bonus: all
+
 $(NAME): $(OBJS)
 # Doesnt work with multiple libs
 	cp $(LIBFT) $(AR_OBJ)
@@ -77,4 +79,4 @@ $(BUILD_DIR):
 	$(eval CFLAGS += -g)
 
 
-.PHONY:	all re fclean clean run gdb buildDebug so diff .MKDIR_BUILD .DEBUG_FLAG
+.PHONY:	all bonus re fclean clean run gdb buildDebug so diff .MKDIR_BUILD .DEBUG_FLAG

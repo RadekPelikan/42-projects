@@ -6,15 +6,15 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 21:06:25 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/06/01 16:07:47 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/06/16 14:25:12 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_TYPES_H
 # define FT_PRINTF_TYPES_H
 
-#include <stdbool.h>
-#include <stdio.h>
+# include <stdbool.h>
+# include <stdio.h>
 
 // (specifier) char
 // • %c Prints a single character.
@@ -48,10 +48,22 @@ typedef struct s_specifier_details
 	bool			is_invalid;
 }					t_sdetails;
 
-typedef struct s_sequence_result
+typedef struct s_specifier_result
 {
 	char			*result;
-	size_t			seq_len;
+	size_t			len;
 }					t_sresult;
+
+typedef struct s_sequence_result
+{
+	size_t			skip;
+	t_sresult		*sresult;
+}					t_seqresult;
+
+typedef struct s_format_result
+{
+	char			*result;
+	size_t			len;
+}					t_fresult;
 
 #endif

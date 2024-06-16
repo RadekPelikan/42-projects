@@ -6,43 +6,55 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 18:58:11 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/06/01 20:49:16 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/06/16 16:18:35 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_resolve_spef_char(t_sdetails *details, char c)
+t_sresult	*ft_resolve_spef_char(t_sdetails *details, char c)
 {
-	char	*result;
+	t_sresult	*spef_result;
+	char		*result;
 
-	(void)details;
+	spef_result = malloc(sizeof(t_sresult));
+	if (spef_result == NULL)
+		return (NULL);
 	result = ft_calloc(sizeof(char), 2);
+	spef_result->result = result;
 	result[0] = c;
 	result[1] = '\0';
 	ft_resolve_space_filling(details, &result);
-	return (result);
+	spef_result->len = ft_strlen(result) + (c == 0);
+	return (spef_result);
 }
 
-char	*ft_resolve_spef_str(t_sdetails *details, char *str)
+t_sresult	*ft_resolve_spef_str(t_sdetails *details, char *str)
 {
-	char	*result;
+	t_sresult	*spef_result;
+	char		*result;
 
-	(void)details;
+	spef_result = malloc(sizeof(t_sresult));
+	if (spef_result == NULL)
+		return (NULL);
 	result = ft_calloc(sizeof(char), ft_strlen(str) + 1);
+	spef_result->result = result;
 	ft_strlcpy(result, str, ft_strlen(str) + 1);
 	ft_resolve_space_filling(details, &result);
-	return (result);
+	spef_result->len = ft_strlen(result);
+	return (spef_result);
 }
 
-
-char	*ft_resolve_spef_ptr(t_sdetails *details, unsigned long n)
+t_sresult	*ft_resolve_spef_ptr(t_sdetails *details, unsigned long n)
 {
-	char	*result;
+	t_sresult	*spef_result;
+	char		*result;
 
-	(void)details;
-	(void)n;
+	spef_result = malloc(sizeof(t_sresult));
+	if (spef_result == NULL)
+		return (NULL);
 	result = ft_ultostr(n, HEX_CHARS_LOWER);
+	spef_result->result = result;
 	details->is_hash = true;
 	if (details->is_zero && !details->is_minus)
 	{
@@ -55,38 +67,52 @@ char	*ft_resolve_spef_ptr(t_sdetails *details, unsigned long n)
 		ft_resolve_plus(details, &result);
 		ft_resolve_space_filling(details, &result);
 	}
-	return (result);
+	spef_result->len = ft_strlen(result);
+	return (spef_result);
 }
 
-char	*ft_resolve_spef_int(t_sdetails *details, int n)
+t_sresult	*ft_resolve_spef_int(t_sdetails *details, int n)
 {
-	char	*result;
+	t_sresult	*spef_result;
+	char		*result;
 
-	(void)details;
+	spef_result = malloc(sizeof(t_sresult));
+	if (spef_result == NULL)
+		return (NULL);
 	result = ft_itoa(n);
+	spef_result->result = result;
 	ft_resolve_zero_filling(details, &result);
 	ft_resolve_plus(details, &result);
-	return (result);
+	spef_result->len = ft_strlen(result);
+	return (spef_result);
 }
 
-char	*ft_resolve_spef_uint(t_sdetails *details, unsigned int n)
+t_sresult	*ft_resolve_spef_uint(t_sdetails *details, unsigned int n)
 {
-	char	*result;
+	t_sresult	*spef_result;
+	char		*result;
 
-	(void)details;
+	spef_result = malloc(sizeof(t_sresult));
+	if (spef_result == NULL)
+		return (NULL);
 	result = ft_utoa(n);
+	spef_result->result = result;
 	ft_resolve_zero_filling(details, &result);
-	return (result);
+	spef_result->len = ft_strlen(result);
+	return (spef_result);
 }
 
 // Prints hex in lower case
-char	*ft_resolve_spef_lhex(t_sdetails *details, unsigned int n)
+t_sresult	*ft_resolve_spef_lhex(t_sdetails *details, unsigned int n)
 {
-	char	*result;
+	t_sresult	*spef_result;
+	char		*result;
 
-	(void)details;
-	(void)n;
+	spef_result = malloc(sizeof(t_sresult));
+	if (spef_result == NULL)
+		return (NULL);
 	result = ft_ultostr(n, HEX_CHARS_LOWER);
+	spef_result->result = result;
 	details->is_plus = false;
 	if (details->is_zero && !details->is_minus)
 		ft_reolve_zero_hash_filling(details, &result);
@@ -95,17 +121,21 @@ char	*ft_resolve_spef_lhex(t_sdetails *details, unsigned int n)
 		ft_appendhash(details, &result);
 		ft_resolve_space_filling(details, &result);
 	}
-	return (result);
+	spef_result->len = ft_strlen(result);
+	return (spef_result);
 }
 
 // Prints hex in upper case
-char	*ft_resolve_spef_uhex(t_sdetails *details, unsigned int n)
+t_sresult	*ft_resolve_spef_uhex(t_sdetails *details, unsigned int n)
 {
-	char	*result;
+	t_sresult	*spef_result;
+	char		*result;
 
-	(void)details;
-	(void)n;
+	spef_result = malloc(sizeof(t_sresult));
+	if (spef_result == NULL)
+		return (NULL);
 	result = ft_ultostr(n, HEX_CHARS_UPPER);
+	spef_result->result = result;
 	details->is_plus = false;
 	if (details->is_zero && !details->is_minus)
 	{
@@ -118,17 +148,24 @@ char	*ft_resolve_spef_uhex(t_sdetails *details, unsigned int n)
 		ft_appendhash(details, &result);
 		ft_resolve_space_filling(details, &result);
 	}
-	return (result);
+	spef_result->len = ft_strlen(result);
+	return (spef_result);
 }
 
-char	*ft_resolve_spef_percent(void)
+t_sresult	*ft_resolve_spef_percent(void)
 {
-	char	*result;
+	t_sresult	*spef_result;
+	char		*result;
 
+	spef_result = malloc(sizeof(t_sresult));
+	if (spef_result == NULL)
+		return (NULL);
 	result = ft_calloc(sizeof(char), 2);
+	spef_result->result = result;
 	result[0] = '%';
 	result[1] = '\0';
-	return (result);
+	spef_result->len = ft_strlen(result);
+	return (spef_result);
 }
 
 // • %c Prints a single character.
@@ -140,7 +177,8 @@ char	*ft_resolve_spef_percent(void)
 // • %x Prints a number in hexadecimal (base 16) lowercase format.
 // • %X Prints a number in hexadecimal (base 16) uppercase format.
 // • %% Prints a percent sign
-char	*ft_resolve_arg(const char *format, t_sdetails *details, va_list args)
+t_sresult	*ft_resolve_arg(const char *format, t_sdetails *details,
+		va_list args)
 {
 	if (details->specifier == 'c')
 		return (ft_resolve_spef_char(details, va_arg(args, int)));

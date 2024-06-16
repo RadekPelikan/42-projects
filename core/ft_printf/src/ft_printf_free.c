@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 17:50:33 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/06/16 14:39:25 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/06/16 14:37:31 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/06/16 15:38:19 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include "../libft/libft.h"
-# include "ft_io.h"
-# include "ft_printf_free.h"
-# include "ft_printf_helpers.h"
-# include "ft_printf_types.h"
-# include "ft_str_utils.h"
+void	free_sresult(t_sresult *sresult)
+{
+	free(sresult->result);
+	free(sresult);
+}
 
-char	*ft_string_format(const char *format, ...);
-int		ft_printf(const char *format, ...);
+void	free_seqresult(t_seqresult *seqresult)
+{
+	free_sresult(seqresult->sresult);
+	free(seqresult);
+}
 
-#endif
+void	free_seqresult_keep_str(t_seqresult *seqresult)
+{
+	free(seqresult->sresult);
+	free(seqresult);
+}
+
+void	free_fresult(t_fresult *fresult)
+{
+	free(fresult->result);
+	free(fresult);
+}

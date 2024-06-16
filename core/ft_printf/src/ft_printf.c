@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:49:59 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/06/04 18:35:24 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/06/16 17:07:29 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	print_sdetails(t_sdetails *details)
 void	print_sresult(t_sresult *seq_result)
 {
 	printf("== t_sresult ==\n");
-	printf("result:  %s\n", seq_result->result);
-	printf("seq_len: %zu\n", seq_result->seq_len);
+	printf("result:  '%s'\n", seq_result->result);
+	printf("seq_len: %zu\n", seq_result->len);
 }
 
 t_sdetails	*ft_init_sdetails(void)
@@ -71,14 +71,14 @@ t_sdetails	*ft_init_sdetails(void)
 // • %x Prints a number in hexadecimal (base 16) lowercase format.
 // • %X Prints a number in hexadecimal (base 16) uppercase format.
 // • %% Prints a percent sign
-t_sresult	*ft_resolve_specifier(const char *format, va_list args)
+t_seqresult	*ft_resolve_specifier(const char *format, va_list args)
 {
 	size_t		i;
 	t_sdetails	*details;
-	t_sresult	*spef_result;
+	t_seqresult	*seq_result;
 
 	details = ft_init_sdetails();
-	spef_result = malloc(sizeof(t_sresult));
+	seq_result = malloc(sizeof(t_seqresult));
 	i = 0;
 	while (format[i] != '\0')
 	{
@@ -88,79 +88,87 @@ t_sresult	*ft_resolve_specifier(const char *format, va_list args)
 	}
 	details->specifier = format[i];
 	details->index_spef = i;
-	spef_result->seq_len = i + 1;
-	ft_extr_sizes(details, format, spef_result->seq_len);
+	seq_result->skip = i + 1;
+	ft_extr_sizes(details, format, seq_result->skip);
 	// print_sdetails(details);
-	spef_result->result = ft_resolve_arg(format, details, args);
+	seq_result->sresult = ft_resolve_arg(format, details, args);
 	free(details);
-	return (spef_result);
+	return (seq_result);
 }
 
-t_sresult	*ft_process_sequence(const char *format, va_list args)
+t_seqresult	*ft_process_sequence(const char *format, va_list args)
 {
-	t_sresult	*seq_result;
+	t_seqresult	*seq_result;
 
 	if (*format == '%')
 	{
 		seq_result = ft_resolve_specifier(format + 1, args);
-		++seq_result->seq_len;
+		++seq_result->skip;
 		// print_sresult(seq_result);
 		return (seq_result);
 	}
 	seq_result = malloc(sizeof(t_sresult));
-	seq_result->result = ft_calloc(sizeof(char), 2);
-	ft_strlcpy(seq_result->result, format, 2);
-	seq_result->seq_len = 1;
+	seq_result->sresult = malloc(sizeof(t_sresult));
+	seq_result->sresult->result = ft_calloc(sizeof(char), 2);
+	seq_result->sresult->len = 1 * *format != '\0';
+	ft_strlcpy(seq_result->sresult->result, format, 2);
+	seq_result->skip = 1;
 	return (seq_result);
 }
 
 // Returns a formatted string
-char	*ft_string_format(const char *format, ...)
+t_fresult	*ft_string_format_fresult(const char *format, ...)
 {
-	char		*result;
+	t_fresult	*fresult;
 	va_list		args;
 	size_t		i;
-	t_sresult	*seq_result;
+	t_seqresult	*seq_result;
 
+	fresult = malloc(sizeof(t_fresult));
 	va_start(args, format);
 	i = 0;
 	seq_result = ft_process_sequence(format + i, args);
-	i = seq_result->seq_len;
-	result = seq_result->result;
-	free(seq_result);
-	seq_result = ft_process_sequence(format + i, args);
-	if (!*seq_result->result)
+	fresult->result = seq_result->sresult->result;
+	fresult->len = seq_result->sresult->len;
+	i = seq_result->skip;
+	free_seqresult_keep_str(seq_result);
+	if (*format == '\0' || format[i] == '\0')
 	{
-		free(seq_result->result);
-		free(seq_result);
 		va_end(args);
-		return result;
+		return (fresult);
 	}
-	ft_strappend(&result, &seq_result->result);
-	i += seq_result->seq_len;
-	free(seq_result);
+	seq_result = ft_process_sequence(format + i, args);
+	ft_strappend(&fresult->result, &seq_result->sresult->result);
+	fresult->len += seq_result->sresult->len;
+	i += seq_result->skip;
+	free_seqresult_keep_str(seq_result);
 	while (format[i] != '\0')
 	{
 		seq_result = ft_process_sequence(format + i, args);
-		i += seq_result->seq_len;
-		ft_strappend(&result, &seq_result->result);
-		free(seq_result);
+		ft_strappend(&fresult->result, &seq_result->sresult->result);
+		fresult->len += seq_result->sresult->len;
+		i += seq_result->skip;
+		free_seqresult_keep_str(seq_result);
 	}
 	va_end(args);
-	return (result);
+	return (fresult);
+}
+
+char	*ft_string_format(const char *format, ...)
+{
+	return ft_string_format_fresult(format)->result;
 }
 
 // Returns how many charaters has it printed, excluding null byte
 // If function encounters an error a negative value is returned
 int	ft_printf(const char *format, ...)
 {
-	char	*result;
-	size_t	len;
+	t_fresult	*fresult;
+	size_t		len;
 
-	result = ft_string_format(format);
-	ft_putstr(result);
-	len = ft_strlen(result);
-	// printf("LEN: %zu\n", len);
-	free(result);
+	fresult = ft_string_format_fresult(format);
+	ft_putstr(fresult->result);
+	len = fresult->len;
+	free_fresult(fresult);
 	return (len);
 }

@@ -188,26 +188,27 @@ int	main(void)
 	// char format[] = "'%.5'";%#0+20.5X
 
 	///////////////////////////////
-	// char format[] = "%. v s '%10s'";
-	// char var[] = "hello";
+	char format[] =  "%d " ;
+	long var = LONG_MAX;
 
 	// // char format[] = "'%u'";
 	// // unsigned int var = UINT_MAX;
 
-	// printf("format: '%s' | var: '%s'\n\n", format, var);
-	// char *temp = ft_strjoin("PRINTF: \t", format);
-	// char *format_preq = ft_strjoin(temp, "\n");
-	// free(temp);
+	printf("format: '%s' | var: '%ld'\n\n", format, var);
+	char *temp = ft_strjoin("PRINTF: \t", format);
+	char *format_preq = ft_strjoin(temp, "\n");
+	free(temp);
 
-	// printf(format_preq, var);
+	printf(format_preq, var);
 
-	// printf("\n|||||||||||| DEBUG PART ||||||||||||\n");
-	// free(format_preq);
-	// temp = ft_strjoin("FT_PRINTF: \t", format);
-	// format_preq = ft_strjoin(temp, "\n");
-	// free(temp);
-	// // ft_printf(format_preq, var);
-	// free(format_preq);
+
+	printf("\n|||||||||||| DEBUG PART ||||||||||||\n");
+	free(format_preq);
+	temp = ft_strjoin("FT_PRINTF: \t", format);
+	format_preq = ft_strjoin(temp, "\n");
+	free(temp);
+	ft_printf(format_preq, var);
+	free(format_preq);
 	///////////////////////////////
 
 	// ft_printf("%x\n", 48646448);
@@ -216,12 +217,12 @@ int	main(void)
 	// printf("'%0.5x'\n", ptr);
 	// ft_printf("'%#0-20.5X'\n", ptr);
 
-	int result1 = ft_printf("' %c %c %c '", '0', 0, '1');
-	printf("\n");
-	int result2 = printf("' %c %c %c '", '0', 0, '1');
-	printf("\n");
-	ft_printf("Length1: %d\n", result1);
-	ft_printf("Length2: %d\n", result2);
+	// int result1 = ft_printf(" %d ", -1);
+	// printf("\n");
+	// int result2 = printf(" %d ", -1);
+	// printf("\n");
+	// ft_printf("Length1: %d\n", result1);
+	// ft_printf("Length2: %d\n", result2);
 }
 
 
