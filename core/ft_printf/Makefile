@@ -6,7 +6,7 @@
 #    By: rpelikan <rpelikan@student.42prague.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/16 03:23:33 by rpelikan          #+#    #+#              #
-#    Updated: 2024/09/19 19:06:05 by rpelikan         ###   ########.fr        #
+#    Updated: 2024/09/19 20:59:25 by rpelikan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ all: ${NAME}
 clean:
 	${MAKE} clean -C ./libft
 	${RM} ${OBJ}
-	${RM} ${BONUS_O}
+	${RM} ${DEBU_NAME}
 
 fclean:	clean
 	${MAKE} fclean -C ./libft
