@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_putptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rpelikan <rpelikan@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/08 16:53:36 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/01/14 15:51:31 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/09/16 04:02:42 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/09/19 20:48:51 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_putptr(uintptr_t ptr)
 {
-	int	count;
+	int		size;
 
-	count = 0;
-	while (*s != '\0')
+	if (!ptr)
 	{
-		++count;
-		++s;
+		return (ft_putstr("(nil)"));
 	}
-	return (count);
+	size = ft_putstr("0x");
+	size += ft_put_unum(ptr, HEX_CHARS_LOWER);
+	return (size);
 }

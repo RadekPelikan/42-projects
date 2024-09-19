@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_io.c                                            :+:      :+:    :+:   */
+/*   ft_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpelikan <rpelikan@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 17:50:07 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/06/01 15:55:27 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/09/19 18:44:34 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/09/19 20:52:53 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void	ft_putchar(char str)
+#include <stdio.h>
+/*
+int	main(void)
 {
-	write(1, &str, 1);
-}
+	int number;
+	int result;
 
-void	ft_putstr(char *str)
-{
-	write(1, str, ft_strlen(str));
+	number = -1;
+	result = ft_putdecnum(number);
+	printf("\n%d\n", result);
 }
-
-void	ft_errputstr(char *str)
-{
-	write(2, str, ft_strlen(str));
-}
+*/

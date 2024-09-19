@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_io.h                                            :+:      :+:    :+:   */
+/*   ft_putupperhex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpelikan <rpelikan@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 18:58:22 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/06/01 15:56:09 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/09/16 04:50:23 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/09/16 04:51:07 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_IO_H
-# define FT_IO_H
+#include "ft_printf.h"
 
-void	ft_putchar(char str);
-void	ft_putstr(char *str);
-void	ft_errputstr(char *str);
-
-
-#endif
+int	ft_putupperhex(unsigned int num)
+{
+	return (ft_putnum(num, HEX_CHARS_UPPER));
+}

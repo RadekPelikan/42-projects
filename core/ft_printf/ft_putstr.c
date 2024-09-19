@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rpelikan <rpelikan@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/08 16:53:36 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/01/14 15:51:31 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/09/16 01:58:06 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/09/16 05:04:41 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_putstr(char *str)
 {
-	int	count;
-
-	count = 0;
-	while (*s != '\0')
-	{
-		++count;
-		++s;
-	}
-	return (count);
+	if (!str)
+		str = "(null)";
+	return (write(1, str, ft_strlen(str)));
 }

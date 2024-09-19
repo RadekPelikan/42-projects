@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_alloc_str.c                                     :+:      :+:    :+:   */
+/*   ft_putunsignednum.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpelikan <rpelikan@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 21:57:36 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/06/01 19:26:50 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/09/16 04:46:54 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/09/16 04:49:02 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_alloc_str(int len)
+int	ft_putunsignednum(unsigned int num)
 {
-	char	*ptr;
-	ptr = malloc(sizeof(char) * len + 1);
-	if (!ptr)
-		return (NULL);
-	ptr[len] = '\0';
-	return (ptr);
+	return (ft_putnum(num, DEC_CHARS));
 }

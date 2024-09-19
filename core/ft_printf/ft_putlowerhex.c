@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_putlowerhex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rpelikan <rpelikan@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/08 16:53:36 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/01/14 15:51:31 by rpelikan         ###   ########.fr       */
+/*   Created: 2024/09/16 04:49:19 by rpelikan          #+#    #+#             */
+/*   Updated: 2024/09/16 04:50:09 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_putlowerhex(unsigned int num)
 {
-	int	count;
-
-	count = 0;
-	while (*s != '\0')
-	{
-		++count;
-		++s;
-	}
-	return (count);
+	return (ft_putnum(num, HEX_CHARS_LOWER));
 }

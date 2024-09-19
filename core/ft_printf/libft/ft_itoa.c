@@ -3,57 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpelikan <rpelikan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpelikan <rpelikan@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 12:32:17 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/05/26 21:56:37 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:11:40 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <limits.h>
+
+static int	ft_intlen(int n)
+{
+	int	len;
+
+	len = 0;
+	if (n <= 0)
+		len++;
+	while (n)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
+}
 
 char	*ft_itoa(int n)
 {
-	char	*ptr;
-	int		len;
+	char		*ptr;
+	int			len;
+	long int	m;
 
 	len = ft_intlen(n);
-	ptr = ft_alloc_str(len);
-	if (n == INT_MIN)
-	{
-		ptr[--len] = (n - 1) % 10 + '0' + 1;
-		n /= 10;
-	}
-	if (n < 0)
+	ptr = malloc(sizeof(char) * len + 1);
+	if (!ptr)
+		return (NULL);
+	m = n;
+	if (m < 0)
 	{
 		ptr[0] = '-';
-		n *= -1;
+		m *= -1;
 	}
-	if (n == 0)
+	ptr[len] = '\0';
+	len--;
+	if (m == 0)
 		ptr[0] = '0';
-	while (n)
+	while (m)
 	{
-		ptr[--len] = n % 10 + '0';
-		n /= 10;
+		ptr[len] = m % 10 + '0';
+		m /= 10;
+		len--;
 	}
 	return (ptr);
 }
-
-char	*ft_utoa(unsigned int n)
-{
-	char	*ptr;
-	int		len;
-
-	len = ft_intlen(n);
-	ptr = ft_alloc_str(len);
-	if (n == 0)
-		ptr[0] = '0';
-	while (n)
-	{
-		ptr[--len] = n % 10 + '0';
-		n /= 10;
-	}
-	return (ptr);
-}
-

@@ -1,82 +1,52 @@
-SRC_DIR		:= ./src
-INC_DIRS	:= ./include
-DEBUG_DIR	:= ./debug
-BUILD_DIR	:= .
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rpelikan <rpelikan@student.42prague.com>   +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/09/16 03:23:33 by rpelikan          #+#    #+#              #
+#    Updated: 2024/09/19 19:06:05 by rpelikan         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-FLAGS		:= -Wall -Wextra -Werror 
 
-CC			:= clang
-LIBC		:= ar -rcs
-RM			:= rm -rf
+SRC = $(filter-out ft_main.c, $(wildcard *.c))
 
-LIBFT		:= ./lib/libft.a
-NAME		:=	libftprintf.a
-SO_NAME		:=	$(NAME:.a=.so)
-DEBUG_BIN	:= $(DEBUG_DIR)/bin
+INC = libft
+OBJ = $(SRC:.c=.o)
+NAME = libftprintf.a
+DEBUG_NAME = main
+RM = rm -f
+CFLAGS = -Wall -Wextra -Werror
+LIBC = ar rc
+LIBFT = ./libft/libft.a
 
-INCFLAGS	:= $(foreach dir, $(INC_DIRS), -I$(dir))
-CFLAGS		:= $(FLAGS) $(INCFLAGS)
+.c.o:
+	cc ${CFLAGS} -c $< -o ${<:.c=.o} -I ${INC}
 
-SRCS := $(shell find $(SRC_DIR) -name "*.c")
-OBJS := $(SRCS:.c=.o)
+${NAME}: ${OBJ}
+	make -C ./libft
+	cp ./libft/libft.a ${NAME}
+	${LIBC} ${NAME} ${OBJ}
 
-DEBUG_SRCS := $(wildcard $(DEBUG_DIR)/*.c)
-DEBUG_OBJS := $(DEBUG_SRCS:.c=.o)
-
-AR_OBJ	:= $(BUILD_DIR)/$(NAME)
-SO_OBJ	:= $(BUILD_DIR)/$(SO_NAME)
-
-all: $(BUILD_DIR) $(LIBFT) $(NAME)
-
-# bonus: all
-
-$(NAME): $(OBJS)
-# Doesnt work with multiple libs
-	cp $(LIBFT) $(AR_OBJ)
-	$(LIBC) $(AR_OBJ) $^
-	
-$(LIBFT):
-	mkdir -p $(dir $(LIBFT))
-	make bonus -C ./libft
-	mv ./libft/libft.a $(dir $(LIBFT))
-
-%.o: %.c
-	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c -o $@ $< 
-
-re:	fclean all
-
-fclean: clean
-	$(RM) $(AR_OBJ) $(DEBUG_BIN)
-	$(RM)  */*.a */*.so */*.o 
+all: ${NAME}
 
 clean:
-	$(RM) $(OBJS) $(SO_OBJ) $(DEBUG_OBJS)
+	${MAKE} clean -C ./libft
+	${RM} ${OBJ}
+	${RM} ${BONUS_O}
 
-run: buildDebug
-	@echo
-	@$(DEBUG_BIN)
+fclean:	clean
+	${MAKE} fclean -C ./libft
+	${RM} ${NAME}
 
-gdb: re buildDebug
-	@gdb $(DEBUG_BIN)
 
-buildDebug: .DEBUG_FLAG $(LIBFT) $(SO_OBJ) $(DEBUG_OBJS)
-	$(CC) -o $(DEBUG_BIN) $(SO_OBJ) $(DEBUG_OBJS) -L$(dir $(LIBFT)) -lft
+re: fclean all
 
-so: $(BUILD_DIR) $(SO_OBJ) 
-
-$(SO_OBJ): $(SRCS)
-	$(CC) $(CFLAGS) -o $(SO_OBJ) -fPIC -shared $^
-
-diff:
-	@git status
-	@git --no-pager diff --stat
-
-$(BUILD_DIR):
-	mkdir -p $(BUILD_DIR)
+debug: .DEBUG_FLAG ${NAME}
+	cc ${CFLAGS} -o ${DEBUG_NAME} ft_main.c ${NAME} -I ${INC}
+	chmod +x ${DEBUG_NAME}
 
 .DEBUG_FLAG:
 	$(eval CFLAGS += -g)
-
-
-.PHONY:	all bonus re fclean clean run gdb buildDebug so diff .MKDIR_BUILD .DEBUG_FLAG
