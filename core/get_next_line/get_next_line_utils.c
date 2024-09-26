@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_netxt_line_utils.c                             :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpelikan <rpelikan@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:11:58 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/09/25 23:20:29 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/09/26 00:16:20 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
 
 size_t	str_n_cpy(char *src, char *dest, size_t count)
 {
@@ -20,12 +19,12 @@ size_t	str_n_cpy(char *src, char *dest, size_t count)
 	if (count == 0)
 		return (0);
 	i = 0;
-	while(src && src[i])
+	while (src && src[i])
 	{
 		dest[i] = src[i];
 		++i;
 	}
-	while(i < count)
+	while (i < count)
 	{
 		dest[i] = '\0';
 		++i;
@@ -46,7 +45,7 @@ char	*str_join(char *str, char *tail)
 	if (!new_str)
 		return (NULL);
 	i = str_n_cpy(str, new_str, old_len);
-	while(tail[i - old_len])
+	while (tail[i - old_len])
 	{
 		new_str[i] = tail[i - old_len];
 		++i;
@@ -66,7 +65,7 @@ size_t	str_len(char *str)
 	if (!str)
 		return (0);
 	len = 0;
-	while(str[len])
+	while (str[len])
 		len++;
 	return (len);
 }

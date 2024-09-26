@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 18:49:43 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/09/25 23:24:14 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/09/26 00:36:52 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ int	main(void)
 	int		fd;
 	char	*line;
 
-	fd = open("00.txt", O_RDONLY);
+	fd = open("01.txt", O_RDONLY);
 	line = get_next_line(fd);
-	while(line && *line)
+	while (line && *line)
 	{
-		line = get_next_line(fd);
 		printf("%s", line);
+		line = get_next_line(fd);
 		free(line);
 	}
+	close(fd);
 }

@@ -6,23 +6,22 @@
 /*   By: rpelikan <rpelikan@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:41:54 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/09/25 23:36:08 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/09/26 00:31:02 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "get_next_line.h"
 
 char	*read_buffer(int fd)
 {
 	char	*buffer;
-	size_t	read_bytes;
+	int		read_bytes;
 
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);
 	read_bytes = read(fd, buffer, BUFFER_SIZE);
-	if (!read_bytes)
+	if (read_bytes == -1)
 	{
 		free(buffer);
 		buffer = NULL;
@@ -32,14 +31,14 @@ char	*read_buffer(int fd)
 	return (buffer);
 }
 
-char	*get_line(char	*buffer)
+char	*get_line(char *buffer)
 {
 	size_t	i;
 
 	i = 0;
-	while(buffer[i])
+	while (buffer[i])
 	{
-		if(buffer[i] == '\n')
+		if (buffer[i] == '\n')
 			return (buffer + i);
 		++i;
 	}
@@ -53,12 +52,12 @@ char	*str_dup(char *src, size_t count)
 
 	dest = malloc(sizeof(char) * (count + 1));
 	i = 0;
-	while(src[i] && i < count)
+	while (src[i] && i < count)
 	{
 		dest[i] = src[i];
 		++i;
 	}
-	while(i < count + 1)
+	while (i < count + 1)
 	{
 		dest[i] = '\0';
 		++i;
@@ -72,7 +71,7 @@ char	*str_slice(char *str, size_t start, size_t count)
 
 	new_str = str_dup(str + start, count);
 	free(str);
-	return(new_str);
+	return (new_str);
 }
 
 char	*get_next_line(int fd)
@@ -82,28 +81,28 @@ char	*get_next_line(int fd)
 	char			*line;
 	size_t			index;
 
-	if (BUFFER_SIZE <= 0 || fd < 0)
+	if (BUFFER_SIZE <= 0 || fd <= 0)
 		return (NULL);
-	while(1)
-	{	
+	while (1)
+	{
 		tail = read_buffer(fd);
 		buffer = str_join(buffer, tail);
-		if (!*buffer)
+		if (!buffer || !*buffer)
+		{
+			free(tail);
+			free(buffer);
 			return (NULL);
+		}
 		line = get_line(buffer);
 		if (line)
 		{
 			index = line - buffer + 1;
 			line = str_dup(buffer, index);
-			break;
+			break ;
 		}
 		if (!line && !buffer)
 			return (buffer);
 	}
-	buffer = str_slice(buffer, index,str_len(buffer) - str_len(line));
+	buffer = str_slice(buffer, index, str_len(buffer) - str_len(line));
 	return (line);
 }
-
-
-
-
