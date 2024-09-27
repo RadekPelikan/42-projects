@@ -6,103 +6,135 @@
 /*   By: rpelikan <rpelikan@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:41:54 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/09/26 00:31:02 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:00:52 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*read_buffer(int fd)
+size_t	ft_strlen(char *s)
 {
-	char	*buffer;
-	int		read_bytes;
+	int	count;
 
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
-	read_bytes = read(fd, buffer, BUFFER_SIZE);
-	if (read_bytes == -1)
+	count = 0;
+	while (s && *s != '\0')
 	{
-		free(buffer);
-		buffer = NULL;
-		return (buffer);
+		++count;
+		++s;
 	}
-	buffer[read_bytes] = '\0';
-	return (buffer);
+	return (count);
 }
 
-char	*get_line(char *buffer)
+char	*ft_strncpy(char *dest, char *src, unsigned int n)
 {
-	size_t	i;
+	unsigned int	i;
 
 	i = 0;
-	while (buffer[i])
+	while (*src && n)
 	{
-		if (buffer[i] == '\n')
-			return (buffer + i);
-		++i;
+		*(dest + i++) = *src++;
+		--n;
 	}
-	return (NULL);
-}
-
-char	*str_dup(char *src, size_t count)
-{
-	char	*dest;
-	size_t	i;
-
-	dest = malloc(sizeof(char) * (count + 1));
-	i = 0;
-	while (src[i] && i < count)
-	{
-		dest[i] = src[i];
-		++i;
-	}
-	while (i < count + 1)
-	{
-		dest[i] = '\0';
-		++i;
-	}
+	while (n--)
+		*(dest + i++) = '\0';
 	return (dest);
 }
 
-char	*str_slice(char *str, size_t start, size_t count)
+void	str_append(char **str, char *tail)
 {
 	char	*new_str;
+	size_t	str_len;
 
-	new_str = str_dup(str + start, count);
-	free(str);
-	return (new_str);
+	str_len = ft_strlen(*str);
+	new_str = malloc(sizeof(char) * (str_len + ft_strlen(tail) + 1));
+	ft_strncpy(new_str, *str, str_len);
+	ft_strncpy(new_str + str_len, tail, ft_strlen(tail));
+	free(*str);
+	free(tail);
+	tail = NULL;
+	*str = new_str;
+}
+
+int	str_index_of(char	*str, char c)
+{
+	int	i;
+
+	i = 0;
+	if (str == NULL)
+		return (0);
+	while(str[i] != c && str[i] != '\0')
+		++i;
+	if (str[i] == '\0')
+		return (-1);
+	return (i);
+}
+
+void	fill_buffer_until_nl(char **static_buffer, int fd)
+{
+	int		read_count;
+	char	*buffer;
+
+	while (str_index_of(*static_buffer, '\n') == -1)
+	{
+		buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		if (buffer == NULL)
+			return ;
+		read_count = read(fd, buffer, BUFFER_SIZE);
+		if (!read_count)
+		{
+			free(buffer);
+			return ;
+		}
+		buffer[read_count] = '\0';
+		str_append(static_buffer, buffer);
+	}
+}
+
+char	*get_line(char	*static_buffer)
+{
+	char	*line;
+	int		nl_index;
+	
+	nl_index = str_index_of(static_buffer, '\n');
+	if (nl_index == -1)
+		nl_index = ft_strlen(static_buffer);
+	line = malloc(sizeof(char) * (nl_index + 1));
+	ft_strncpy(line, static_buffer, nl_index);
+	return (line);
+}
+
+void	buffer_strip_line(char **static_buffer)
+{
+	char	*new_buffer;
+	size_t	new_len;
+	int		nl_index;
+
+	nl_index = str_index_of(*static_buffer, '\n');
+	if (nl_index == -1)
+		nl_index = ft_strlen(*static_buffer);
+	new_len = ft_strlen(*static_buffer) - nl_index;
+	new_buffer = malloc(sizeof(char) * (new_len + 1));
+	ft_strncpy(new_buffer, *static_buffer + nl_index + 1, new_len);
+	free(*static_buffer);
+	*static_buffer = new_buffer;
 }
 
 char	*get_next_line(int fd)
 {
-	static char		*buffer;
-	char			*tail;
+	static char		*static_buffer;
 	char			*line;
-	size_t			index;
 
-	if (BUFFER_SIZE <= 0 || fd <= 0)
+	line = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, line, BUFFER_SIZE) < 0)
 		return (NULL);
-	while (1)
-	{
-		tail = read_buffer(fd);
-		buffer = str_join(buffer, tail);
-		if (!buffer || !*buffer)
-		{
-			free(tail);
-			free(buffer);
-			return (NULL);
-		}
-		line = get_line(buffer);
-		if (line)
-		{
-			index = line - buffer + 1;
-			line = str_dup(buffer, index);
-			break ;
-		}
-		if (!line && !buffer)
-			return (buffer);
-	}
-	buffer = str_slice(buffer, index, str_len(buffer) - str_len(line));
+	if (!static_buffer)
+		static_buffer = malloc(sizeof(char) * (ft_strlen(line) + 1));
+	else
+		str_append(&static_buffer, line);
+	ft_strncpy(static_buffer, line, ft_strlen(line));
+	free(line);
+	fill_buffer_until_nl(&static_buffer, fd);
+	line = get_line(static_buffer);
+	buffer_strip_line(&static_buffer);
 	return (line);
 }
