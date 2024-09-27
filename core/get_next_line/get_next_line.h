@@ -6,7 +6,7 @@
 /*   By: rpelikan <rpelikan@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 00:13:52 by rpelikan          #+#    #+#             */
-/*   Updated: 2024/09/27 14:29:58 by rpelikan         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:11:56 by rpelikan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,8 @@
 
 char	*get_next_line(int fd);
 
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlen(const char *s);
 
 #endif
